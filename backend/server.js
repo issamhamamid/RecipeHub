@@ -1,13 +1,22 @@
 require('dotenv').config();
 const app = require('./app')
-const dataSource = require('./data-source')
+const dataSource = require('./config/database')
 
-app.listen(3000 , ()=>{
-    console.log('Server started')
-    dataSource.initialize().then(()=>{
-        console.log("Data Source has been initialized!");
 
-    })  .catch((err) => {
-        console.error("Error during Data Source initialization:", err);
-    });
+app.listen(3000, ()=>{
+    console.log('Server started on port 3000');
+    dataSource.authenticate().then(()=>{
+        console.log('db authenticated successfully.');
+    }).catch((err)=>{
+        console.log(err);
+    })
+
+    dataSource.sync({alter: true})
+        .then(() => {
+            console.log('All tables have been created or updated');
+        })
+        .catch((err)=>{
+            console.log(err.message);
+
+        })
 })
