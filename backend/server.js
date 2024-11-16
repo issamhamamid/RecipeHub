@@ -11,7 +11,7 @@ app.listen(3000, ()=>{
         console.log(err);
     })
 
-    dataSource.sync({alter: true})
+    dataSource.sync({force: true})
         .then(() => {
             console.log('All tables have been created or updated');
         })

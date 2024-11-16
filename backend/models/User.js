@@ -1,11 +1,22 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const {hashPassword} = require('../Util/passwordHashing');
+
 
 const User = sequelize.define('User', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+        allowNull: false,
+    },
+    first_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+
+    },
+    last_name: {
+        type: DataTypes.STRING,
         allowNull: false,
     },
     username: {
@@ -37,6 +48,11 @@ const User = sequelize.define('User', {
 }, {
     tableName: 'users',
     timestamps: false,
-});
+},
 
+);
+
+User.beforeCreate(async (user)=>{
+    user.password = await  hashPassword(user.password);
+})
 module.exports = User;
