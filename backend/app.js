@@ -4,12 +4,19 @@ const userRouter = require("./Routes/userRouter");
 const authRouter = require("./Routes/authRouter");
 const passport = require("passport");
 const init = require('./config/passport')
-
+const {errorHandler} = require('./Util/errorHandler')
 
 init(passport)
 app.use(passport.initialize());
 app.use(express.json());
 app.use('/users', userRouter );
 app.use('/auth' ,authRouter )
+app.use(errorHandler)
+
+
+app.all('*' , (req ,res)=>{
+ res.status(404).json("NOT FOUND")
+})
+
 
 module.exports = app;
