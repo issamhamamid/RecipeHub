@@ -3,6 +3,8 @@ const responseHandler = require('../Util/responseHandler');
 const {verifyPassword} = require('../Util/passwordHashing');
 const jwt = require('jsonwebtoken');
 const {asyncHandler} = require('../Util/asyncHandler')
+const {syncHandler} = require('../Util/syncHandler')
+const customError = require('../Error/customError')
 
 module.exports.register = asyncHandler(async (req, res , next) => {
 
@@ -48,3 +50,13 @@ module.exports.login = async (req, res) => {
     responseHandler(req , res , 200 , "");
 
 }
+
+
+module.exports.forAdmins= syncHandler((req , res  , next)=>{
+    if(req.user.role === "admin"){
+        return next()
+    }
+
+    throw new customError(401 , "You do not have permission to access this resource.")
+
+})

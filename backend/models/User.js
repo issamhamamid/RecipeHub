@@ -33,12 +33,25 @@ const User = sequelize.define('User', {
         },
     },
     password: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(64),
         allowNull: false,
+        validate: {
+            len : {
+                args : [5,30],
+                msg : "Password must be at least 5 characters long."
+            }
+        }
     },
     role: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('admin', 'user'),
         allowNull: false,
+        defaultValue : 'user',
+        validate : {
+            isIn : {
+                args : [["user" ,'admin']],
+                msg: "Invalid role"
+            }
+        }
     },
     updated_at: {
         type: DataTypes.DATE,
