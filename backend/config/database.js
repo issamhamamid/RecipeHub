@@ -1,9 +1,10 @@
 const {Sequelize} = require('sequelize')
 
-const sequelize = new Sequelize('recipehub' , 'root' , process.env.DBPASSWORD,{
-    host: 'localhost',
-    dialect: 'mysql'
+const sequelize = new Sequelize(`postgresql://postgres.kdrvnnhsykglftmzepmn:${process.env.DBPASSWORD}@aws-0-eu-west-3.pooler.supabase.com:5432/postgres`, {
+    dialect: 'postgres',
+
 });
+
 
 
 

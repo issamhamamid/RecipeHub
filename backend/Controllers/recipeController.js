@@ -3,10 +3,13 @@ const responseHandler = require("../Util/responseHandler");
 const {asyncHandler} = require("../Util/asyncHandler");
 const customError = require("../Error/customError");
 const User = require("../models/User");
-
+const Apifeatures = require('../Util/Apifeatures')
 
 module.exports.GetAllRecipes = asyncHandler(async (req , res,next) => {
-    const data = await Recipe.findAll()
+    let query = {}
+    let features = new Apifeatures(req.query ,query ).pagination()
+
+    const data = await Recipe.findAll(features.query)
     responseHandler(req , res , 200 , data);
 })
 
