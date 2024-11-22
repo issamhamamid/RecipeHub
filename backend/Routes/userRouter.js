@@ -5,10 +5,13 @@ const userRouter = express.Router();
 const authController = require('../Controllers/authController')
 
 userRouter.route('/')
-.get(passport.authenticate('jwt', { session: false }) ,authController.forAdmins, userController.GetAllUsers)
+.get( userController.GetAllUsers)
 
 
 userRouter.route('/:id')
     .get(userController.getUserById)
+    .patch(userController.updateUser)
+
+
 
 module.exports = userRouter;

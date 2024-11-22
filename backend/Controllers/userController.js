@@ -1,7 +1,5 @@
 const User = require('../models/User')
 const responseHandler = require('../Util/responseHandler')
-const Recipe_Ingredient = require('../models/RecipeIngredient');
-const Comment = require('../models/Comment');
 const {asyncHandler} = require("../Util/asyncHandler");
 const customError = require("../Error/customError");
 
@@ -23,5 +21,23 @@ module.exports.getUserById = asyncHandler(async (req , res) => {
 
  }
 })
+
+
+module.exports.updateUser = asyncHandler(async (req, res) => {
+ const id = Number(req.params.id);
+
+ const { username, email } = req.body;
+
+ const updatedUser = await User.update(
+     { username, email },
+     { where: { id: id } }     // need to fix this
+ );
+
+ if (updatedUser[0] === 0) {
+
+   throw new customError(404 , "NOT FOUND")
+ }
+ responseHandler(req , res , 200 , "");
+});
 
 
