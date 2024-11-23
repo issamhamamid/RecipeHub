@@ -13,6 +13,12 @@ const Recipe = sequelize.define('Recipe', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+
+    category: {
+        type: DataTypes.ENUM('breakfast', 'lunch' , 'dinner' , 'snack' , 'dessert'),
+        allowNull: false,
+    },
+
     description: {
         type: DataTypes.TEXT,
         allowNull: false,

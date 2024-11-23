@@ -4,11 +4,11 @@ const {asyncHandler} = require("../Util/asyncHandler");
 const customError = require("../Error/customError");
 const User = require("../models/User");
 const Apifeatures = require('../Util/Apifeatures')
+const Comment = require("../models/Comment");
 
 module.exports.GetAllRecipes = asyncHandler(async (req , res,next) => {
     let query = {}
-    let features = new Apifeatures(req.query ,query ).pagination()
-
+    let features = new Apifeatures(req.query ,query , ['category'] ).pagination().filtering()
     const data = await Recipe.findAll(features.query)
     responseHandler(req , res , 200 , data);
 })
@@ -19,20 +19,18 @@ module.exports.createRecipe = asyncHandler(async  (req , res , next) => {
     await Recipe.create(recipe);
     responseHandler(req , res , 200 , recipe)
 })
+
 module.exports.getRecipeById = asyncHandler(async (req , res , next) => {
     const id = Number(req.params.id);
     const recipe = await Recipe.findByPk(id)
-    if(recipe){
-        responseHandler(req , res , 200 , Recipe);
-    }
-    else {
-        throw new customError(404 , "NOT FOUND")
 
-    }
+        responseHandler(req , res , 200 , recipe);
+
+
 })
 
 
-module.exports.deleteRecipe = asyncHandler(deleteRecipeMiddleware = async (req, res, next) => {
+module.exports.deleteRecipe = asyncHandler( async (req, res, next) => {
 
         const { id } = req.params;
         const recipe = await Recipe.findByPk(id);
@@ -46,3 +44,18 @@ module.exports.deleteRecipe = asyncHandler(deleteRecipeMiddleware = async (req, 
         responseHandler(req , res , 200 , "");
 
 });
+
+
+module.exports.getRecipeComments = asyncHandler(async (req , res , next) =>{
+    const id = Number(req.params.id)
+
+    const  comments = await Comment.findAll({
+        where: {
+            id
+        }
+    })
+
+    responseHandler(req , res , 200 , comments)
+
+
+})

@@ -6,6 +6,7 @@ const passport = require("passport");
 const init = require('./config/passport')
 const {errorHandler} = require('./Util/errorHandler')
 const recipeRouter = require("./Routes/recipeRouter");
+const commentRouter = require("./Routes/commentRouter");
 
 init(passport)
 app.use(passport.initialize());
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use('/users', userRouter );
 app.use('/auth' ,authRouter )
 app.use('/recipes' , recipeRouter)
+app.use('/comments' ,commentRouter )
 app.use(errorHandler)
 
 
