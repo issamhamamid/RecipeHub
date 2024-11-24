@@ -10,4 +10,14 @@ authRouter.route('/register')
 authRouter.route('/login')
     .get(authController.verifyUserExists , authController.login)
 
+authRouter.route('/forgotpass')
+    .get(authController.forgotPassword)
+
+authRouter.route('/resetpassword')
+    .get(authController.resetPassword)
+
+
+
+
+
 module.exports = authRouter;
