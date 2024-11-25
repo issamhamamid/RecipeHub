@@ -65,7 +65,10 @@ const User = sequelize.define('User', {
 
 );
 
+
 User.beforeCreate(async (user)=>{
     user.password = await  hashPassword(user.password);
 })
+
+
 module.exports = User;

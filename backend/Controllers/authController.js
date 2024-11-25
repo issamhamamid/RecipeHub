@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const responseHandler = require('../Util/responseHandler');
-const {verifyPassword} = require('../Util/passwordHashing');
+const {verifyPassword, hashPassword} = require('../Util/passwordHashing');
 const jwt = require('jsonwebtoken');
 const {asyncHandler} = require('../Util/asyncHandler')
 const {syncHandler} = require('../Util/syncHandler')
@@ -14,8 +14,6 @@ module.exports.register = asyncHandler(async (req, res , next) => {
     await User.create(user);
     const { username, email } = req.body;
     responseHandler(req , res , 201 , { username, email} );
-
-
 
 })
 
@@ -84,14 +82,15 @@ module.exports.forgotPassword = asyncHandler(async (req , res , next)=>{
     const transporter = nodemailer.createTransport({
       service: 'gmail', // You can use other services like Outlook, Yahoo, etc.
       auth: {
-        user: 'test', // Your email address
-        pass: 'test'  // Your email password or app-specific password
+        user: process.env.EMAIL, // Your email address
+        pass: process.env.EMAIL_PASS // Your email password or app-specific password
       }
     });
+    console.log(user.email)
 
     const mailOptions = {
-      from: 'test', // Sender address
-      to: 'test',  // Recipient address
+      from: process.env.EMAIL, // Sender address
+      to: user.email,  // Recipient address
       subject: 'Password reset',        // Subject line
       text: `Head to the following link to reset your password: ${resetLink}`,
     };
@@ -108,15 +107,23 @@ module.exports.resetPassword = asyncHandler(async (req , res , next)=>{
     const user = decoded ? await User.findOne({ where: {username : decoded.username} }) : null
     if(user){
         jwt.verify(token, process.env.PASSWORD_RESET);
-        user.update({
-            password : req.body.password
-        })
+        await User.update(
+            { password : hashPassword(user.password) },
+            {
+                where: {
+                    id: user.id,
+                },
+                individualHooks: true,
+            },
+
+        );
+
 
         responseHandler(req , res , 200 , "Password reset successfully")
 
     }
     else {
-        const err = new CustomError("forbidden" , 401)
+        const err = new customError(401 , "forbidden")
         next(err)
     }
 

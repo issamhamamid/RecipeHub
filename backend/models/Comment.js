@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database'); // Adjust this path to match your project structure
 const Recipe = require('../models/Recipe');
+const RecipeIngredient = require('../models/RecipeIngredient');
 
 const Comment = sequelize.define('Comment', {
     id: {
@@ -43,6 +44,7 @@ Recipe.hasMany(Comment, {
     foreignKey: 'recipe_id',
     onDelete: 'CASCADE',
 });
+
 Comment.belongsTo(Recipe, {
     foreignKey: 'recipe_id',
 });
