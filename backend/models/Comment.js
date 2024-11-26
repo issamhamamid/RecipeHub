@@ -3,6 +3,7 @@ const sequelize = require('../config/database'); // Adjust this path to match yo
 const Recipe = require('../models/Recipe');
 const RecipeIngredient = require('../models/RecipeIngredient');
 
+
 const Comment = sequelize.define('Comment', {
     id: {
         type: DataTypes.INTEGER,
