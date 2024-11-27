@@ -9,5 +9,7 @@ const favoriteRouter = express.Router();
 favoriteRouter.route('/:id')
     .post(passport.authenticate('jwt', { session: false }) ,favoriteController.addFavorite)
 
+favoriteRouter.route('')
+    .get(passport.authenticate('jwt', { session: false }) ,favoriteController.showfavorites)
 
 module.exports = favoriteRouter

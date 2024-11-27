@@ -13,10 +13,21 @@ module.exports.addFavorite = asyncHandler(async (req , res , next)=>{
     if(!recipe){
         throw new customError(404 , "Recipe not found")
     }
-    const user = await User.findByPk(1);
-    await user.addRecipe(recipe);
-    recipes = await  user.getRecipes();
-    console.log(recipes)
-    
+    await Favorite.create({
+        UserId : req.user.id , RecipeId : id
+    })
     responseHandler(req , res , 201 , "")                     
+})
+
+
+
+module.exports.removefavorite = asyncHandler(async ()=>{
+
+})
+
+
+
+module.exports.showfavorites = asyncHandler(async (req , res , next) => {
+    const data = await req.user.getRecipes()
+    responseHandler(req , res , 200 , data)
 })
