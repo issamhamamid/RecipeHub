@@ -16,8 +16,8 @@ const Favorite = sequelize.define('Favorite', {
     timestamps: false,
 });
 
-User.belongsToMany(Recipe, { through: Favorite });
-Recipe.belongsToMany(User, { through: Favorite });
+User.belongsToMany(Recipe, { through: Favorite , as: 'FavoriteRecipes'  });
+Recipe.belongsToMany(User, { through: Favorite , as : 'FavoredByUsers' });
 
 module.exports = Favorite;
 
