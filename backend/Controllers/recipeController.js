@@ -8,7 +8,7 @@ const Comment = require("../models/Comment");
 
 module.exports.GetAllRecipes = asyncHandler(async (req , res,next) => {
     let query = {}
-    let features = new Apifeatures(req.query ,query , ['category'] ).pagination().filtering()
+    let features = new Apifeatures(req.query ,query , ['category'] ).pagination().search().nutritions().filtering()
     const data = await Recipe.findAll(features.query)
     responseHandler(req , res , 200 , data);
 })

@@ -1,3 +1,5 @@
+const {Op} = require("sequelize");
+
 class Apifeatures{
     constructor(queryObj , query , valid_attr) {
         this.queryObj = queryObj
@@ -14,17 +16,41 @@ class Apifeatures{
     }
 
     filtering(){
-        // this.query.where = {}
-        // if(['dessert' , 'breakfast' , 'lunch' , 'dinner' , 'snack'].includes(this.queryObj.category)){
-        //     this.query.where.category = this.queryObj.category
-        // }
 
-        this.query.where = Object.fromEntries(
+        this.query.where = Object.assign( this.query.where ,Object.fromEntries(
             Object.entries(this.queryObj).filter(([key, value]) => this.valid_attr.includes(key)
             )
-        )
+        ) )
+
         return this
     }
+
+    search(){
+
+        this.query.where = {}
+        if(this.queryObj.search){
+            this.query.where.name  = {
+                [Op.iLike]: `%${this.queryObj.search}%`
+            }
+        }
+        return this
+    }
+
+
+    nutritions() {
+        const nutritionFields = ['calories', 'carbs', 'protein', 'fat'];
+
+        nutritionFields.forEach(field => {
+            if (this.queryObj[field]) {
+                this.query.where[field] = {
+                    [Op.between]: this.queryObj[field].split(",")
+                };
+            }
+        });
+
+        return this;
+    }
+
 
 
 }

@@ -39,6 +39,6 @@ module.exports.removefavorite = asyncHandler(async (req , res , next)=>{
 
 
 module.exports.showfavorites = asyncHandler(async (req , res , next) => {
-    const data = await req.user.getFavoriteRecipes()
+    const data = await req.user.getFavoriteRecipes({joinTableAttributes: [],})
     responseHandler(req , res , 200 , data)
 })
