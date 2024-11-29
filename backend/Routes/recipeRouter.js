@@ -3,13 +3,15 @@ const recipeController = require('../Controllers/recipeController');
 const passport = require('passport');
 const authController = require('../Controllers/authController')
 const customError = require("../Error/customError");
+const Recipe = require("../models/Recipe");
 
 
 const recipeRouter = express.Router();
 
 
-recipeRouter.param('id' , (req , res , next , value) =>{
+recipeRouter.param('id' , async (req , res , next , value) =>{
     if(Number(value)){
+        req.recipe = await Recipe.findByPk(value)
         return next()
     }
     else{
@@ -29,5 +31,8 @@ recipeRouter.route('/:id')
 
 recipeRouter.route('/:id/comments')
     .get(recipeController.getRecipeComments)
+
+recipeRouter.route('/:id/ingredients')
+    .get(recipeController.getRecipeIngredients)
 
 module.exports = recipeRouter;

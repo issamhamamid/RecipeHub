@@ -21,10 +21,8 @@ module.exports.createRecipe = asyncHandler(async  (req , res , next) => {
 })
 
 module.exports.getRecipeById = asyncHandler(async (req , res , next) => {
-    const id = Number(req.params.id);
-    const recipe = await Recipe.findByPk(id)
 
-        responseHandler(req , res , 200 , recipe);
+        responseHandler(req , res , 200 , req.recipe);
 
 
 })
@@ -32,8 +30,7 @@ module.exports.getRecipeById = asyncHandler(async (req , res , next) => {
 
 module.exports.deleteRecipe = asyncHandler( async (req, res, next) => {
 
-        const { id } = req.params;
-        const recipe = await Recipe.findByPk(id);
+        const recipe = req.recipe
 
         if (!recipe) {
             throw new customError(404 , "NOT FOUND")
@@ -58,4 +55,15 @@ module.exports.getRecipeComments = asyncHandler(async (req , res , next) =>{
     responseHandler(req , res , 200 , comments)
 
 
+})
+
+
+module.exports.getRecipeIngredients = asyncHandler(async (req , res , next)=>{
+    const recipe = req.recipe
+
+    if (!recipe) {
+        throw new customError(404 , "NOT FOUND")
+    }
+    const data = await recipe.getRecipeIngredients()
+    responseHandler(req , res , 200 , data)
 })

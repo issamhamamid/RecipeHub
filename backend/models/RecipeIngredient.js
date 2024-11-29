@@ -2,6 +2,7 @@ const  {DataTypes} = require('sequelize');
 const sequelize = require('../config/database');
 const Recipe = require('../models/Recipe');
 const Ingredient = require('../models/Ingredient');
+const User = require("./User");
 
 const RecipeIngredient =sequelize.define('RecipeIngredient', {
         id: {
@@ -10,40 +11,18 @@ const RecipeIngredient =sequelize.define('RecipeIngredient', {
             autoIncrement: true,
             allowNull: false,
         },
-        recipe_id : {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references : {
-                model : 'recipes',
-                key : 'id'
-            }
-        },
-        ingredient_id : {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references : {
-                model : 'ingredients',
-                key : 'id'
-            }
+
+        quantity:{
+            type : DataTypes.INTEGER,
+            allowNull : false
         }
+
+
     } ,
     {
         tableName: 'recipe_ingredients',
         timestamps: false,
     })
 
-RecipeIngredient.belongsTo(Recipe, {
-    foreignKey : 'recipe_id'
-})
-
-RecipeIngredient.belongsTo(Ingredient, {
-    foreignKey : 'ingredient_id'
-})
-
-Recipe.hasMany(RecipeIngredient , {
-    foreignKey: 'recipe_id',
-})
-
-Ingredient.hasMany(RecipeIngredient, {
-    foreignKey: 'ingredient_id',
-})
+Ingredient.belongsToMany(Recipe, { through: RecipeIngredient , as: 'UsedInRecipes'  });
+Recipe.belongsToMany(Ingredient, { through: RecipeIngredient, as : 'RecipeIngredients' });
