@@ -8,13 +8,15 @@ userRouter.route('/')
 .get( passport.authenticate('jwt', { session: false }) , authController.forAdmins ,  userController.GetAllUsers)
 
 
-userRouter.route('/:id')
-    .get(userController.getUserById)
 
-
-
-userRouter.route('/:id/profile')
+userRouter.route('/profile')
     .get( passport.authenticate('jwt', { session: false }) , userController.userProfile )
     .patch(passport.authenticate('jwt', { session: false }) , userController.updateUser)
+
+
+
+userRouter.route('/mealplan')
+    .post(passport.authenticate('jwt', { session: false }) , userController.saveMealPlan)
+    .get(passport.authenticate('jwt', { session: false }) , userController.showMealPlans)
 
 module.exports = userRouter;

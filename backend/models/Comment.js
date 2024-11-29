@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database'); // Adjust this path to match your project structure
 const Recipe = require('../models/Recipe');
 const RecipeIngredient = require('../models/RecipeIngredient');
+const MealPlanRecipes = require('./MealPlanRecipe');
 
 
 const Comment = sequelize.define('Comment', {

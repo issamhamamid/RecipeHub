@@ -1,4 +1,7 @@
 const User = require('../models/User')
+const MealPlan = require('../models/MealPlan')
+const Recipe = require('../models/Recipe')
+const MealPlanRecipe = require('../models/MealPlanRecipe')
 const responseHandler = require('../Util/responseHandler')
 const {asyncHandler} = require("../Util/asyncHandler");
 const customError = require("../Error/customError");
@@ -54,5 +57,62 @@ module.exports.userProfile =  (req , res) =>{
    userinfo
  })
 }
+
+
+module.exports.saveMealPlan = asyncHandler(async (req , res , next)=>{
+ const mealplan = await MealPlan.create({
+  name : req.body.name ,
+  user_id : req.user.id
+ })
+ for (const recipeId of req.body.breakfast) {
+   await MealPlanRecipe.create({
+    meal_type : "Breakfast" ,
+    RecipeId : recipeId ,
+    MealPlanId : mealplan.id
+   })
+ }
+ for (const recipeId of req.body.lunch) {
+   await MealPlanRecipe.create({
+    meal_type : "Lunch" ,
+    RecipeId : recipeId ,
+    MealPlanId : mealplan.id
+   })
+ }
+ for (const recipeId of req.body.dinner) {
+   await MealPlanRecipe.create({
+    meal_type : "Dinner" ,
+    RecipeId : recipeId ,
+    MealPlanId : mealplan.id
+   })
+ }
+ responseHandler(req , res , 201 , "")
+
+})
+
+
+module.exports.showMealPlans = asyncHandler(async (req, res, next) => {
+ const mealPlans = await req.user.getMealPlans();  // Get meal plans associated with the user
+ const data = {};
+
+ // Use Promise.all to fetch all recipes concurrently
+ const recipePromises = mealPlans.map(async (mealPlan) => {
+  const recipes = await mealPlan.getMealPlanRecipes({
+   through: {
+    model: MealPlanRecipe, // Specify the junction model (MealPlanRecipe)
+    attributes: []         // Do not include any attributes from the junction table
+   }
+  });
+
+  // Add the recipes to the data object under the meal plan's name
+  data[mealPlan.name] = recipes;
+ });
+
+ // Wait for all promises to resolve
+ await Promise.all(recipePromises);
+
+ // Send the response with the data
+ return responseHandler(req, res, 200, data);
+});
+
 
 
