@@ -6,6 +6,8 @@ const responseHandler = require('../Util/responseHandler')
 const {asyncHandler} = require("../Util/asyncHandler");
 const customError = require("../Error/customError");
 const {syncHandler} = require("../Util/syncHandler");
+const axios = require('axios');
+
 
 
 module.exports.GetAllUsers = async (req , res) => {
@@ -123,4 +125,10 @@ module.exports.removeMealPlan = asyncHandler(async (req , res ,next)=>{
  responseHandler(req , res , 200 , "")
 })
 
+
+module.exports.generateMealPlan = asyncHandler(async (req , res ,next)=>{
+ const response = await axios.post('http://localhost:5000', req.body);
+
+ responseHandler(req , res , 200 , response.data)
+})
 
