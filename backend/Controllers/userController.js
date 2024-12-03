@@ -115,4 +115,12 @@ module.exports.showMealPlans = asyncHandler(async (req, res, next) => {
 });
 
 
+module.exports.removeMealPlan = asyncHandler(async (req , res ,next)=>{
+ const mealplan = await MealPlan.findOne({
+  name : req.body.name
+ })
+ await mealplan.destroy()
+ responseHandler(req , res , 200 , "")
+})
+
 

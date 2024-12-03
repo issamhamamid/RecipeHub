@@ -13,25 +13,11 @@ const Ingredient = sequelize.define('Ingredient', {
         allowNull: false,
     },
 
-    protein: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
+     image_url: {
+            type: DataTypes.STRING,
+            allowNull: false,
+     },
 
-    carbs: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-
-    fat: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-
-    calories: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
 } ,
     {
         tableName: 'ingredients',

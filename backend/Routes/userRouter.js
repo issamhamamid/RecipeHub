@@ -18,5 +18,6 @@ userRouter.route('/profile')
 userRouter.route('/mealplan')
     .post(passport.authenticate('jwt', { session: false }) , userController.saveMealPlan)
     .get(passport.authenticate('jwt', { session: false }) , userController.showMealPlans)
+    .delete(passport.authenticate('jwt', { session: false }) , userController.removeMealPlan)
 
 module.exports = userRouter;

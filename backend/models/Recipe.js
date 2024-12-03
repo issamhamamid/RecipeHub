@@ -15,19 +15,17 @@ const Recipe = sequelize.define('Recipe', {
         allowNull: false,
     },
 
-    category: {
-        type: DataTypes.ENUM('breakfast', 'lunch' , 'dinner' , 'snack' , 'dessert'),
-        allowNull: false,
-    },
 
     description: {
         type: DataTypes.TEXT,
         allowNull: false,
     },
+
     instructions: {
         type: DataTypes.TEXT,
         allowNull: false,
     },
+
     image_url: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -37,15 +35,15 @@ const Recipe = sequelize.define('Recipe', {
         allowNull: false,
     },
     protein: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
     fat: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
     carbs: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
     created_at: {
@@ -70,10 +68,6 @@ const Recipe = sequelize.define('Recipe', {
         allowNull: false,
     },
     cook_time: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    number_of_servings: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
