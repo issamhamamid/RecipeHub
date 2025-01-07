@@ -2,14 +2,16 @@ const Recipe = require("../models/Recipe");
 const responseHandler = require("../Util/responseHandler");
 const {asyncHandler} = require("../Util/asyncHandler");
 const customError = require("../Error/customError");
-const User = require("../models/User");
+const RecipeIngredient = require("../models/RecipeIngredient");
 const Apifeatures = require('../Util/Apifeatures')
 const Comment = require("../models/Comment");
 
 module.exports.GetAllRecipes = asyncHandler(async (req , res,next) => {
     let query = {}
     let features = new Apifeatures(req.query ,query , ['category'] ).pagination().search().nutritions().filtering()
+    features.query.attributes =  ['id', 'name' , 'calories' , 'carbs' ,'fat' , 'protein']
     const data = await Recipe.findAll(features.query)
+
     responseHandler(req , res , 200 , data);
 })
 
@@ -21,8 +23,13 @@ module.exports.createRecipe = asyncHandler(async  (req , res , next) => {
 })
 
 module.exports.getRecipeById = asyncHandler(async (req , res , next) => {
+        let data = {recipe :req.recipe}
+        data.ingredients =  await req.recipe.getRecipeIngredients({
 
-        responseHandler(req , res , 200 , req.recipe);
+        })
+
+
+        responseHandler(req , res , 200 , data);
 
 
 })
@@ -64,6 +71,8 @@ module.exports.getRecipeIngredients = asyncHandler(async (req , res , next)=>{
     if (!recipe) {
         throw new customError(404 , "NOT FOUND")
     }
-    const data = await recipe.getRecipeIngredients()
+    const data = await recipe.getRecipeIngredients({
+
+    })
     responseHandler(req , res , 200 , data)
 })
