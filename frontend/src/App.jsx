@@ -1,12 +1,18 @@
 
-import Sidebar from "./components/Sidebar.jsx";
 import Header from "./components/Header.jsx";
 
 function App() {
 
 
   return (
-  <Header/>
+      <>
+        <Header/>
+        <div className="container">
+          <h1>Page Conthjhjent</h1>
+        </div>
+      </>
+
+
   )
 }
 
