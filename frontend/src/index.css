@@ -147,12 +147,13 @@ p{
 }
 
 .sidebar{
+    overflow-y: auto;
     position: fixed; /* Fixes the sidebar */
     top: 0;          /* Aligns it to the top */
     left: 0;
     width: 240px;
     background-color: #f8fafb;
-    min-height: 100vh;
+    height: 100vh;
     border-right: #d7e2ea solid 1px;
     padding-top: 2em;
     font-weight: 650;
@@ -167,28 +168,50 @@ p{
 
 }
 
-.side-bar-icons , .user-info{
+.side-bar-icons , .user-info , .side-bar-active{
     width: 90%;
     margin-right: auto;
     margin-left: auto;
 }
 
-.side-bar-element:hover{
-    background-color: #eaedee;
-}
 
-.side-bar-icons{
+.side-bar-icons , .side-bar-active{
     border-radius: 100px;
     padding: .5em;
     margin-bottom: 1em;
-    color: #21272c;
+
 
 }
 
-.side-bar-icons:hover{
+.side-bar-icons{
+    color: #21272c;
+}
+
+.side-bar-active{
+    color: #f29151;
+}
+
+.side-bar-icons:hover {
     background-color: #eaedee;
     text-decoration: none;
 }
+
+.side-bar-icons:focus{
+    text-decoration: none;
+}
+
+.side-bar-active:focus{
+    text-decoration: none;
+}
+
+.side-bar-active:hover{
+    background-color: #f8f4f4;
+    text-decoration: none;
+}
+
+
+
+
 
 .side-bar-text{
     margin-top: .06em;

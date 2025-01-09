@@ -13,7 +13,7 @@ const Sidebar = ()=>{
             </div>
             {Links.map((item) => {
                 return (
-                    <NavLink key={item.title} className='side-bar-icons' to={item.link}>
+                    <NavLink key={item.title} className={({isActive})=> isActive ? 'side-bar-active' : 'side-bar-icons'} to={item.link} end >
                         <div className="side-bar-element" >
 
                                 <item.icon className='element'/>
@@ -22,7 +22,7 @@ const Sidebar = ()=>{
                     </NavLink>
                 )
             })}
-            <NavLink className='side-bar-icons logout' to='/dbeb'>
+            <NavLink className='side-bar-icons logout' to='/app'>
                 <div className="side-bar-element " >
 
                         <IoIosLogOut className='element'/>

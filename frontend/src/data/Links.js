@@ -9,7 +9,7 @@ import { VscAccount } from "react-icons/vsc";
 export const Links = [
     {
         title: "Meal Planner",
-        link: "planner",
+        link: "",
         icon: RiCalendarLine
 
     },

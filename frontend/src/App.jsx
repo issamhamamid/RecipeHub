@@ -10,61 +10,11 @@ function App() {
   return (
       <BrowserRouter>
         <Routes>
-            <Route path = '/app' element={<MainLayout/>} >
-                <Route path='test' element={<div>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <br/>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <br/>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <br/>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <br/>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <br/>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <br/>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <br/>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <br/>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <br/>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <br/>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <br/>
-                    <h1 className='content'>testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk
-                        testgfglfgjnfuiokgfgfg ghnfgkfhngfjk </h1>
-                    <br/>
-                    <br/>
-                </div>}/>
+            <Route path = '/app'  element={<MainLayout/>} >
+                <Route path='recipes' element={<div>fgf</div>}/>
+                <Route path='recipes' element={<div>fgf</div>}/>
+                <Route path='favorites' element={<div>fgf</div>}/>
+                <Route path='settings' element={<div>fgf</div>}/>
 
             </Route>
 
