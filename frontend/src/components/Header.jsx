@@ -1,5 +1,5 @@
 import { RxHamburgerMenu } from "react-icons/rx";
-import {useState , useEffect} from "react";
+import {useState, useEffect} from "react";
 import { IoMdClose } from "react-icons/io";
 
 const Header =()=>{
@@ -40,7 +40,6 @@ const Header =()=>{
 
 
 
-
     return(
         <header className= {"offline-header" +" " + height_class}>
             <div className="container-flex container">
@@ -69,7 +68,8 @@ const Header =()=>{
                     <a href="#" className="header-links-menu">Browse Recipes</a>
                     <a href="#" className="header-links-menu">Supported Diets</a>
                     <div className="sign-up-section sign-up-section-menu">
-                        <button className="btn signup-btn-menu">Sign Up</button>
+                        <button className="btn signup-btn-menu" >Sign Up</button>
+
                         <a href="#" className="sign-in">Already a member? Sign in</a>
                     </div>
                 </>
