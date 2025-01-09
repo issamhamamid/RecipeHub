@@ -1,6 +1,7 @@
 import { RxHamburgerMenu } from "react-icons/rx";
 import {useState, useEffect} from "react";
 import { IoMdClose } from "react-icons/io";
+import {Link} from 'react-router-dom'
 
 const Header =()=>{
 
@@ -44,13 +45,13 @@ const Header =()=>{
         <header className= {"offline-header" +" " + height_class}>
             <div className="container-flex container">
                 <img className='logo' src={imageSrc} alt="logo"/>
-                <a href="#" className="header-links"> How it Works</a>
-                <a href="#" className="header-links"> Browse Recipes</a>
-                <a href="#" className="header-links"> Supported Diets</a>
+                <Link to='.' className="header-links">How it Works</Link>
+                <Link to='.' className="header-links"> Browse Recipes</Link>
+                    <Link to='.'  className="header-links"> About</Link>
 
                 <div className="sign-up-section">
                     <button className="btn signup-btn">Sign Up</button>
-                    <a href="#" className="header-links sign-in"> Already a member? Sign in</a>
+                    <Link to= 'register' className="header-links sign-in"> Already a member? Sign in</Link>
                 </div>
                 <a
                     className="hamburger-menu"
@@ -68,9 +69,11 @@ const Header =()=>{
                     <a href="#" className="header-links-menu">Browse Recipes</a>
                     <a href="#" className="header-links-menu">Supported Diets</a>
                     <div className="sign-up-section sign-up-section-menu">
-                        <button className="btn signup-btn-menu" >Sign Up</button>
+                        <Link to='login'>
+                            <button className="btn signup-btn-menu">Sign Up</button>
+                        </Link>
 
-                        <a href="#" className="sign-in">Already a member? Sign in</a>
+                        <Link to='login' className="sign-in">Already a member? Sign in</Link>
                     </div>
                 </>
             )}

@@ -20,7 +20,7 @@ a{
     color: #f07651;
     text-decoration: none;
     font-weight: 500;
-
+    cursor: pointer;
 }
 
 
@@ -28,7 +28,7 @@ a:hover , a:focus{
     text-decoration: underline;
 }
 
-p{
+p,h1,h2{
     margin: 0;
 
 
@@ -55,10 +55,8 @@ p{
 
 
 .container{
-
     margin: 0 auto;
     width: 100%;
-
 }
 
 .container-flex{
@@ -143,7 +141,7 @@ p{
 }
 
 .mt{
-    margin-top: 1.5em;
+    margin-top: 8.5em;
 }
 
 .sidebar{
@@ -188,7 +186,7 @@ p{
 }
 
 .side-bar-active{
-    color: #f29151;
+    color: #f07651;
 }
 
 .side-bar-icons:hover {
@@ -208,8 +206,6 @@ p{
     background-color: #f8f4f4;
     text-decoration: none;
 }
-
-
 
 
 
@@ -256,16 +252,90 @@ p{
     margin-top: 0;
 }
 
+
 .content{
     margin-left: 250px;
     width: 50%;
     margin: 0 auto;
+    text-align: center;
 }
 
 
+/*LOGIN PAGE*/
 
 
+.login-page{
+    width: 470px;
+    margin-left: auto;
+    margin-right: auto;
 
+}
+
+input{
+    width: 100%;
+    padding: .9em .5em;
+    border: #bfced9 solid 1px;
+    border-radius: 5px;
+}
+
+.sign-in-btn{
+    width: 100%;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5em;
+    padding: .8em 1em;
+    border: none;
+    background-color: #f07651;
+    color: white;
+    font-size: .9rem;
+    cursor: pointer;
+
+}
+
+.sign-in-btn:hover{
+    background-color: #f17d5a;
+}
+
+.icon{
+    font-size: 1.3rem;
+
+}
+
+
+label{
+    font-weight: 650;
+    display: inline-block;
+    margin-bottom: .5em;
+}
+
+.already,  input , .forgot , .sign-in-btn {
+    margin-bottom: 1em;
+}
+
+.register-h2{
+    margin-bottom: .2em;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: .2em;
+    font-weight: 550;
+}
+
+
+.chef-hat{
+    margin-bottom: .1em;
+    color: #f07651;
+    font-size: 3rem;
+}
+
+
+.forgot , .dont{
+    display: block;
+    text-align: center;
+
+}
 
 
 
