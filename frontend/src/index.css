@@ -147,7 +147,9 @@ p{
 }
 
 .sidebar{
-
+    position: fixed; /* Fixes the sidebar */
+    top: 0;          /* Aligns it to the top */
+    left: 0;
     width: 240px;
     background-color: #f8fafb;
     min-height: 100vh;
@@ -222,9 +224,7 @@ p{
 }
 
 
-.main-layout{
-    display: flex;
-}
+
 
 
 .content{
@@ -233,7 +233,11 @@ p{
     margin-top: 0;
 }
 
-
+.content{
+    margin-left: 250px;
+    width: 50%;
+    margin: 0 auto;
+}
 
 
 
