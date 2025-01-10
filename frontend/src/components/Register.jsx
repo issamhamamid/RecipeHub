@@ -2,18 +2,18 @@ import { GoPerson } from "react-icons/go";
 import { GiBellPepper } from "react-icons/gi";
 import {Link} from "react-router-dom";
 import {useActionState, useState} from "react";
-
-import axios from 'axios';
-
-
-
-
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import {useUser} from "../customHooks/useUser.js";
 
 export const Register = () => {
+    const {jwt , setJwt} = useUser()
 
+
+    let Navigate = useNavigate()
     const [errors, setErrors] = useState({
         first_name: '' ,
-        ln : '',
+        last_name : '',
         username : '',
         password : '',
         confirm : ''
@@ -23,7 +23,7 @@ export const Register = () => {
 
         setErrors({
             first_name: '' ,
-            ln : '',
+            last_name : '',
             username : '',
             password : '',
             confirm : ''
@@ -52,29 +52,44 @@ export const Register = () => {
     const submit =   async (previousState , formData)=>{
         const data = {
             'first_name' : formData.get('firstname') ,
-            'ln' : formData.get('lastname') ,
+            'last_name' : formData.get('lastname') ,
             'username' : formData.get('username'),
             'confirm' :formData.get('confirm-password'),
-            'email' : formData.get('email')
-            , 'password' : formData.get('password')
+            'email' : formData.get('email'),
+            'password' : formData.get('password'),
+            'role' : 'user'
         }
+
+
 
         const isValid = checkErrors(data)
         if (!isValid){
             return data
         }
 
-        // try{
-        //     const datas = await axios.post('http://localhost:3000/register' , )
-        //     console.log(datas)
-        // }
-        //
-        // catch (err){
-        //     console.log(err)
-        // }
+        const jsonObj = {
+            'first_name' : formData.get('firstname') ,
+            'last_name' : formData.get('lastname') ,
+            'username' : formData.get('username'),
+            'email' : formData.get('email'),
+            'password' : formData.get('password'),
+            'role' : 'user'
+        }
 
 
+            try{
 
+                const response = await axios.post('http://localhost:3000/auth/register' , jsonObj )
+                if(response.status===201){
+                    setJwt(response.headers['authorization'])
+                    Navigate('/app')
+
+                }
+
+            }
+            catch (err){
+                console.log(err.response?.data?.message)
+            }
 
         return data
 
@@ -98,7 +113,7 @@ export const Register = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="lastname">Last Name</label>
-                    <input defaultValue={data?.ln} type="text" id="lastname" name="lastname" required/>
+                    <input defaultValue={data?.last_name} type="text" id="lastname" name="lastname" required/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
