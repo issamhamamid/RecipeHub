@@ -1,6 +1,8 @@
-import { GoPerson } from "react-icons/go";
 import { GiBellPepper } from "react-icons/gi";
 import {Link} from "react-router-dom";
+import { MdOutlineLogin } from "react-icons/md";
+
+
 
 
 export const Login = () => {
@@ -21,9 +23,9 @@ export const Login = () => {
 
                 <a className='forgot'>Forgot password?</a>
                 <button type="submit" className=" sign-in-btn">
-                    <GoPerson className='icon'/> Login
+                    <MdOutlineLogin className='icon'/> Login
                 </button>
-                <Link to='/register' className='dont'>Don&#39;t have an account? <a>Register</a></Link>
+                <Link to='/register' className='dont'>Don&#39;t have an account? Register </Link>
             </form>
         </div>
     )

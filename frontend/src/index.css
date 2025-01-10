@@ -271,11 +271,22 @@ p,h1,h2{
 
 }
 
-input{
+input , .error-div{
     width: 100%;
+    border-radius: 5px;
+
+}
+
+input{
     padding: .9em .5em;
     border: #bfced9 solid 1px;
-    border-radius: 5px;
+}
+
+.error-div{
+    padding: .5em .5em;
+    margin-top: .3em;
+    background-color: #fdf0ec;
+    color: #b82b00;
 }
 
 .sign-in-btn{
@@ -291,6 +302,7 @@ input{
     color: white;
     font-size: .9rem;
     cursor: pointer;
+    margin-top: .8em;
 
 }
 
@@ -308,11 +320,9 @@ label{
     font-weight: 650;
     display: inline-block;
     margin-bottom: .5em;
+    margin-top: .8em;
 }
 
-.already,  input , .forgot , .sign-in-btn {
-    margin-bottom: 1em;
-}
 
 .register-h2{
     margin-bottom: .2em;
@@ -335,6 +345,10 @@ label{
     display: block;
     text-align: center;
 
+}
+
+input:hover{
+    background-color: #f7f9f9;
 }
 
 
