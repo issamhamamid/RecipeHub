@@ -8,14 +8,6 @@ const customError = require('../Error/customError')
 const nodemailer = require('nodemailer');
 
 
-module.exports.register = asyncHandler(async (req, res , next) => {
-
-    const user = req.body;
-    await User.create(user);
-    const { username, email } = req.body;
-    responseHandler(req , res , 201 , { username, email} );
-
-})
 
 
 
@@ -34,6 +26,24 @@ module.exports.verifyUserExists = asyncHandler(async (req, res, next) => {
     }
 
     throw new Error('invalid credentials , please try again');
+
+})
+
+
+module.exports.register = asyncHandler(async (req, res , next) => {
+
+    const user = req.body;
+    await User.create(user);
+    const { username, email } = req.body;
+
+    const payload = {
+        username: req.body.username,
+        role : req.body.role
+    }
+
+    const token = jwt.sign(payload, process.env.PRIVATE_KEY, { algorithm: 'RS256', expiresIn: '1h' });
+    res.set('Authorization', token);
+    responseHandler(req , res , 201 , { username, email} );
 
 })
 

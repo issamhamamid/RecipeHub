@@ -8,8 +8,12 @@ const {errorHandler} = require('./Util/errorHandler')
 const recipeRouter = require("./Routes/recipeRouter");
 const commentRouter = require("./Routes/commentRouter");
 const favoriteRouter = require("./Routes/favoriteRouter");
+const cors = require('cors')
 
 init(passport)
+app.use(cors({
+ origin : 'http://localhost:5173'
+}))
 app.use(passport.initialize());
 app.use(express.json());
 app.use('/users', userRouter );
@@ -18,6 +22,7 @@ app.use('/recipes' , recipeRouter)
 app.use('/comments' ,commentRouter )
 app.use('/favorites' , favoriteRouter)
 app.use(errorHandler)
+
 
 
 app.all('*' , (req ,res)=>{

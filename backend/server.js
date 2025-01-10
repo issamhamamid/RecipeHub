@@ -3,6 +3,7 @@ const app = require('./app')
 const dataSource = require('./config/database')
 
 
+
 app.listen(3000, ()=>{
     console.log('Server started on port 3000');
     dataSource.authenticate().then(()=>{
