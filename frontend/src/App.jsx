@@ -5,6 +5,7 @@ import {OfflineLayout} from "./Layouts/OfflineLayout.jsx";
 import {Register} from "./components/Register.jsx";
 import {Login} from './components/Login.jsx'
 import {UserProvider} from "./components/UserProvider.jsx";
+import PrivateRouteLayout from "./Layouts/PrivateRouteLayout.jsx";
 
 function App() {
 
@@ -13,12 +14,14 @@ function App() {
       <UserProvider>
           <BrowserRouter>
                 <Routes>
-                    <Route path = '/app'  element={<MainLayout/>} >
-                        <Route path='recipes' element={<div>fgf</div>}/>
-                        <Route path='recipes' element={<div>fgf</div>}/>
-                        <Route path='favorites' element={<div>fgf</div>}/>
-                        <Route path='settings' element={<div>fgf</div>}/>
+                    <Route element={<PrivateRouteLayout />}>
+                        <Route path = '/app'  element={<MainLayout/>} >
+                            <Route path='recipes' element={<div>fgf</div>}/>
+                            <Route path='recipes' element={<div>fgf</div>}/>
+                            <Route path='favorites' element={<div>fgf</div>}/>
+                            <Route path='settings' element={<div>fgf</div>}/>
 
+                        </Route>
                     </Route>
                     <Route path = '/'  element={<OfflineLayout/>} >
                         <Route path='register' element={<Register/>}/>

@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {useUser} from "../customHooks/useUser.js";
 
 export const Register = () => {
-    const {jwt , setJwt} = useUser()
+    const { setJwt} = useUser()
 
 
     let Navigate = useNavigate()
@@ -60,15 +60,13 @@ export const Register = () => {
             'role' : 'user'
         }
 
-
-
         const isValid = checkErrors(data)
         if (!isValid){
             return data
         }
 
         const jsonObj = {
-            'first_name' : formData.get('firstname') ,
+            first_name : formData.get('firstname') ,
             'last_name' : formData.get('lastname') ,
             'username' : formData.get('username'),
             'email' : formData.get('email'),

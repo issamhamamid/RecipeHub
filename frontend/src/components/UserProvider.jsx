@@ -4,7 +4,7 @@ import { useLocalState } from "../customHooks/useLocalState";
 const UserContext = createContext(); // Declare but do not export
 
 const UserProvider = ({ children }) => {
-    const [jwt, setJwt] = useLocalState("jwt");
+    const [jwt, setJwt] = useLocalState('jwt');
 
     return (
         <UserContext.Provider value={{ jwt, setJwt }}>
