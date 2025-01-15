@@ -1,16 +1,11 @@
 import { GoPerson } from "react-icons/go";
 import { GiBellPepper } from "react-icons/gi";
 import {Link} from "react-router-dom";
-import {useActionState, useState} from "react";
-import axios from "axios";
-import {useNavigate} from "react-router-dom";
-import {useUser} from "../customHooks/useUser.js";
+import {useState} from "react";
+import {useForm} from "../customHooks/useForm.js";
 
 export const Register = () => {
-    const { setJwt} = useUser()
 
-
-    let Navigate = useNavigate()
     const [errors, setErrors] = useState({
         first_name: '' ,
         last_name : '',
@@ -49,51 +44,11 @@ export const Register = () => {
         return Object.keys(errorsObj).length === 0;
     }
 
-    const submit =   async (previousState , formData)=>{
-        const data = {
-            'first_name' : formData.get('firstname') ,
-            'last_name' : formData.get('lastname') ,
-            'username' : formData.get('username'),
-            'confirm' :formData.get('confirm-password'),
-            'email' : formData.get('email'),
-            'password' : formData.get('password'),
-            'role' : 'user'
-        }
+    const link = 'http://localhost:3000/auth/register';
+    const fields = [  'first_name','username' , 'email', 'password' , 'confirm' , 'last_name']
+    const jsonArray = ['first_name','username' , 'password' , 'last_name' , 'email']
+    const [data , submitAction , isPending] = useForm( link, jsonArray ,fields , checkErrors )
 
-        const isValid = checkErrors(data)
-        if (!isValid){
-            return data
-        }
-
-        const jsonObj = {
-            first_name : formData.get('firstname') ,
-            'last_name' : formData.get('lastname') ,
-            'username' : formData.get('username'),
-            'email' : formData.get('email'),
-            'password' : formData.get('password'),
-            'role' : 'user'
-        }
-
-
-            try{
-
-                const response = await axios.post('http://localhost:3000/auth/register' , jsonObj )
-                if(response.status===201){
-                    setJwt(response.headers['authorization'])
-                    Navigate('/app')
-
-                }
-
-            }
-            catch (err){
-                console.log(err.response?.data?.message)
-            }
-
-        return data
-
-    }
-
-    const [data, submitAction, isPending] = useActionState(submit, null);
 
 
 
@@ -103,15 +58,15 @@ export const Register = () => {
             <p className='already'>Already have an account? <Link to='/login'>Log In</Link></p>
             <form action={submitAction} method="POST" >
                 <div className="form-group">
-                    <label htmlFor="firstname">First Name</label>
-                    <input defaultValue={data?.first_name} type="text" id="firstname" name="firstname" required/>
+                    <label htmlFor="first_name">First Name</label>
+                    <input defaultValue={data?.first_name} type="text" id="first_name" name="first_name" required/>
                     {errors.first_name && <div className='error-div'>
                         <p style={{color: 'red'}}>{errors.first_name}</p>
                     </div>}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="lastname">Last Name</label>
-                    <input defaultValue={data?.last_name} type="text" id="lastname" name="lastname" required/>
+                    <label htmlFor="last_name">Last Name</label>
+                    <input defaultValue={data?.last_name} type="text" id="last_name" name="last_name" required/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
@@ -130,8 +85,8 @@ export const Register = () => {
                     </div>}
                     </div>
                         <div className="form-group">
-                    <label htmlFor="confirm-password">Confirm Password</label>
-                    <input defaultValue={data?.confirm} type="password" id="confirm-password" name="confirm-password" required/>
+                    <label htmlFor="confirm">Confirm Password</label>
+                    <input defaultValue={data?.confirm} type="password" id="confirm" name="confirm" required/>
                             {errors.confirm &&  <div className='error-div'><p>{errors.confirm}</p> </div>}
                     </div>
                         <button disabled={isPending} className="sign-in-btn">

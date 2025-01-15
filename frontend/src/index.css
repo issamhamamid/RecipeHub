@@ -71,7 +71,6 @@ p,h1,h2{
     border: none;
     color: white;
     border-radius: 4px;
-    letter-spacing: 1px;
     text-transform: uppercase;
     font-weight: 750;
     cursor: pointer;
@@ -245,20 +244,14 @@ p,h1,h2{
 
 
 
+/*CONTENT FOR THE APP*/
 
 .content{
-    background-color: darkred;
 
-    margin-top: 0;
+    margin-left: 240px;
+    margin-top: 4em;
 }
 
-
-.content{
-    margin-left: 250px;
-    width: 50%;
-    margin: 0 auto;
-    text-align: center;
-}
 
 
 /*LOGIN PAGE*/
@@ -351,7 +344,151 @@ input:hover{
     background-color: #f7f9f9;
 }
 
+/*MODAL*/
 
+
+.modal{
+    padding: 1em 2.5em;
+    border: none;
+    border-radius: 10px;
+    max-width: 470px;
+}
+
+.modal::backdrop{
+    background: rgb(0 0 0 / .45);
+
+}
+
+
+.line {
+    width: 100%; /* Line takes full width of the parent */
+    height: 1px; /* Height of the line */
+    background-color: #ccc; /* Line color */
+    margin-top: 1em; /* Space between the content and the line */
+
+}
+
+.modal-text , .line{
+    margin-bottom: 1em;
+}
+
+
+.modal-buttons{
+    display: flex;
+    justify-content: flex-end;
+    gap: .5em;
+}
+
+.modal-btn{
+    padding: .9em 1em;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+
+.default{
+    background-color: white;
+    border: 1px solid #e3e3e3;
+}
+
+
+
+.default:hover {
+    background-color: #ececec;
+    border: 1px solid #e3e3e3;
+}
+
+
+.confirm{
+    background-color: #ef4444;
+    color: white;
+}
+
+
+
+.confirm:hover {
+    background-color: #b91c1c;
+
+}
+
+
+.modal-title{
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+
+.modal-text{
+    font-weight: 400;
+}
+
+
+
+/*DISCOVER RECIPES PAGE*/
+
+
+.discover{
+    width: 94%;
+    margin: 0 auto;
+}
+
+
+.header{
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.dbeb{
+    display: flex;
+
+    width: 30%;
+    background-color: red;
+}
+
+.header-element{
+    width: 25%;
+    text-align: right;
+}
+
+
+.header-element{
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.recipe-thumbnail{
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 5px;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+.recipe-main{
+    align-items: center;
+    gap: .2em;
+
+}
+
+.recipe-main , .recipe-nutrients , .recipe{
+    display: flex;
+}
+
+.recipe{
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recipe-nutrients{
+    width: 20%;
+    justify-content: space-between;
+
+
+}
 
 
 

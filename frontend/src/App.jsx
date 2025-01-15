@@ -6,9 +6,9 @@ import {Register} from "./components/Register.jsx";
 import {Login} from './components/Login.jsx'
 import {UserProvider} from "./components/UserProvider.jsx";
 import PrivateRouteLayout from "./Layouts/PrivateRouteLayout.jsx";
+import {Discover} from "./components/Discover.jsx";
 
 function App() {
-
 
   return (
       <UserProvider>
@@ -16,9 +16,8 @@ function App() {
                 <Routes>
                     <Route element={<PrivateRouteLayout />}>
                         <Route path = '/app'  element={<MainLayout/>} >
-                            <Route path='recipes' element={<div>fgf</div>}/>
-                            <Route path='recipes' element={<div>fgf</div>}/>
-                            <Route path='favorites' element={<div>fgf</div>}/>
+                            <Route path='recipes' element={<Discover/>}/>
+                            <Route path='favorites' element={<div >fgf</div>}/>
                             <Route path='settings' element={<div>fgf</div>}/>
 
                         </Route>

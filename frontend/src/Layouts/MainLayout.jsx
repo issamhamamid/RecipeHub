@@ -5,10 +5,13 @@ import Sidebar from '../components/Sidebar.jsx'
 export const MainLayout = () => {
     return (
 
-           <>
-               <Sidebar/>
-               <Outlet/>
-           </>
+        <>
+            <Sidebar/>
+            <div className='content'>
+                <Outlet/>
+            </div>
+        </>
+
 
     )
 }

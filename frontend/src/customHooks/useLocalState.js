@@ -1,5 +1,5 @@
 import {useState , useEffect , useRef} from "react";
-import axios from "axios";
+
 
 const  useLocalState = (key)=>{
     const firstRender = useRef(0);
@@ -17,9 +17,6 @@ const  useLocalState = (key)=>{
 
         if(firstRender.current >1){
             localStorage.setItem(key, JSON.stringify(value));
-
-
-
         }
 
         else {

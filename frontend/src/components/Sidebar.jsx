@@ -1,15 +1,34 @@
 
-import {NavLink} from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import {Links} from '../data/Links.js'
 import { IoIosLogOut } from "react-icons/io";
+import {useRef} from "react";
+import {ModalTitle} from "./ModalTitle.jsx";
+import {ModalMainText} from "./ModalMainText.jsx";
+import {Modal} from "./Modal.jsx";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import {useUser} from "../customHooks/useUser.js";
 
 const Sidebar = ()=>{
+
+    const navigate = useNavigate();
+    const logout = ()=>{
+        dialogRef.current?.showModal()
+        localStorage.clear();
+        navigate('/login');
+    }
+
+    const dialogRef = useRef(null);
+    const {jwt} = useUser()
+    const decoded = jwtDecode(jwt);
+
     return(
         <aside className="sidebar">
 
             <div className="user-info">
-                <p className='first-letter'>I</p>
-                <p className='username'>hammamidissam2</p>
+                <p className='first-letter'>{decoded?.username[0]}</p>
+                <p className='username'>{decoded?.username}</p>
             </div>
             {Links.map((item) => {
                 return (
@@ -22,13 +41,19 @@ const Sidebar = ()=>{
                     </NavLink>
                 )
             })}
-            <NavLink className='side-bar-icons logout' to='/app'>
+            <a onClick={() => dialogRef.current?.showModal()} className='side-bar-icons logout'>
                 <div className="side-bar-element " >
 
                         <IoIosLogOut className='element'/>
                     <p className='side-bar-text'>Logout</p>
                 </div>
-                </NavLink>
+                </a>
+
+            <Modal onConfirm={logout} dialogRef={dialogRef} confirmationText='Log out'>
+                <ModalTitle>Are you sure you want to log out?</ModalTitle>
+                <ModalMainText>You&#39;re about to log out of your account. Press &#39;Log out to proceed and you&#39;ll be redirected to the login page.</ModalMainText>
+            </Modal>
+
 
         </aside>
     )

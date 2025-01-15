@@ -7,12 +7,12 @@ const PrivateRouteLayout = () => {
 
     const {jwt} = useUser()
     const [isValid, setIsValid] = useState(null);
-    const [isLoadig, setIsLoadig] = useState(true)
+    const [isLoadig, setisLoadig] = useState(true)
 
 
     useEffect(() => {
 
-        setIsLoadig(true)
+        setisLoadig(true)
         axios.post('http://localhost:3000/auth/validate', {}, {
             headers: {
                 'Authorization': `Bearer ${jwt}`,
@@ -21,11 +21,12 @@ const PrivateRouteLayout = () => {
         })
             .then(response => {
                 setIsValid(response.data.data)
-                setIsLoadig(false)
+                setisLoadig(false)
             })
             .catch(error => {
                 console.error('Error:', error);
             });
+
 
     }, [jwt]);
 
