@@ -441,14 +441,13 @@ input:hover{
 
 }
 
-.dbeb{
+.header-main{
     display: flex;
+    width: 28em;
 
-    width: 30%;
-    background-color: red;
 }
 
-.header-element{
+.header-element , .nutrient{
     width: 25%;
     text-align: right;
 }
@@ -456,7 +455,14 @@ input:hover{
 
 .header-element{
     font-weight: 600;
+
+}
+.header-element , .nutrient{
     font-size: 1.05rem;
+}
+
+.nutrient{
+    font-weight: 380;
 }
 
 .recipe-thumbnail{
@@ -481,18 +487,64 @@ input:hover{
 .recipe{
     align-items: center;
     justify-content: space-between;
+    padding-bottom: .3em;
+    border-bottom: 1px solid #d7e2ea;
+    margin-bottom: .3em;
 }
 
 .recipe-nutrients{
-    width: 20%;
-    justify-content: space-between;
-
-
+    width: 28em;
 }
 
 
+.dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.blue{
+    background-color: #11bdcd;
+}
+
+.purple{
+    background-color: #a375ff;
+}
+
+.yellow{
+    background-color: #f1b604;
+}
 
 
+.recipe-title{
+    color: #0053ac;
+    font-weight: 400;
+}
+
+
+@media (max-width: 1250px) {
+
+    .nutrient{
+
+        width: 100%;
+    }
+
+    .none{
+        display: none;
+
+    }
+
+    .header-main{
+
+        text-align: right;
+    }
+
+    .header-element{
+        width: 100%;
+    }
+
+}
 
 
 
