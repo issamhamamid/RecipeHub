@@ -2,22 +2,28 @@ import {RecipeRow} from "./RecipeRow.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Pagination} from "./Pagination.jsx";
+import {useSearchParams} from "react-router-dom";
 
 
 export const Discover = () => {
 
     const [recipesArray, setRecipesArray] = useState([]);
+    const [params] = useSearchParams()
+    const page = params.get('page') || 1
+
+
+
 
     useEffect(() => {
 
-            axios.get('http://localhost:3000/recipes?page=2')
+
+        axios.get(`http://localhost:3000/recipes?page=${page}`)
                 .then(response =>{
                     setRecipesArray(response.data.data)
-
                 })
 
 
-    }, []);
+    }, [params]);
 
     const recipes = recipesArray.map((recipe)=>{
         return <RecipeRow key={recipe.id} {...recipe} />;
@@ -35,7 +41,7 @@ export const Discover = () => {
                 </div>
             </div>
             {recipes}
-            <Pagination page={20}/>
+            <Pagination page={page}/>
 
 
         </div>

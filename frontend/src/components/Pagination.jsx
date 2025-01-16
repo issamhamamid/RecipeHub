@@ -1,9 +1,20 @@
 import {GrFormPrevious} from "react-icons/gr";
 import { BsThreeDots } from "react-icons/bs";
 import { MdOutlineNavigateNext } from "react-icons/md";
+import {useSearchParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 
 export const Pagination = ({page}) => {
+    const [params , setParams] = useSearchParams()
+    const [count, setCount] = useState();
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/recipes/count').then(response=>{
+            setCount(response.data.data)
+        })
+    }, []);
 
     const generateArray =()=>{
         const totalNumbers = 7; // Total numbers in the array
@@ -15,8 +26,8 @@ export const Pagination = ({page}) => {
         let end = start + middleCount - 1;
 
         // Adjust if the end goes beyond 29
-        if (end >= 30) {
-            start -= end - 29;
+        if (end >= count) {
+            start -= end - (count-1);
         }
 
 
@@ -24,25 +35,50 @@ export const Pagination = ({page}) => {
         const middle = Array.from({ length: middleCount }, (_, i) => start + i);
 
         // Add 1 and 30 to the sequence
-        return [1, ...middle, 30];
+        return [1, ...middle, count];
     }
 
     const format = (array)=>{
         if (page > 4){
-            array.splice(1, 0, <BsThreeDots />);
+            array.splice(1, 0, <BsThreeDots key="left-dots" />);
 
         }
 
-        if(page < 27){
-            array.splice(7, 0, <BsThreeDots />);
+        if(page < count -3){
+            array.splice(7, 0, <BsThreeDots key="right-dots" />);
         }
         return array
     }
 
-    const paginationNumbers = format(generateArray().map((element)=> {
-        return element ===page ? <a key={element} className='page_number_current'>{element}</a> : <a key={element} className='page_number'>{element}</a>
-    }))
 
+    const addToParams = (key , value)=>{
+        const sp = new URLSearchParams(params)
+        sp.set(key , value)
+        return sp.toString()
+    }
+
+
+
+
+    const paginationNumbers = format(
+        generateArray().map((element) => {
+            return element == page ? (
+                <a key={element} className="page_number_current">
+                    {element}
+                </a>
+            ) : (
+                <a
+                    key={element}
+                    onClick={() => {
+                        setParams(addToParams('page', element));
+                    }}
+                    className="page_number"
+                >
+                    {element}
+                </a>
+            );
+        })
+    );
 
     return (
         <div className='pagination'>
