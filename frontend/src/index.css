@@ -55,9 +55,10 @@ p,h1,h2{
 
 
 .container{
-    margin: 0 auto;
+
     width: 100%;
 }
+
 
 .container-flex{
     display: flex;
@@ -431,6 +432,10 @@ input:hover{
 
 .discover{
     width: 94%;
+
+}
+
+.container , .discover , .pagination {
     margin: 0 auto;
 }
 
@@ -528,6 +533,10 @@ input:hover{
     .nutrient{
 
         width: 100%;
+
+    }
+    .recipe-nutrients{
+        width: auto;
     }
 
     .none{
@@ -542,11 +551,53 @@ input:hover{
 
     .header-element{
         width: 100%;
+
     }
 
 }
 
 
+.pagination{
+    width: 50%;
+    font-weight: 900;
+    margin-bottom: 3em;
+
+}
+
+.page_number , .page_number_current{
+    padding: .2em .5em;
+    border-radius: 5px;
+
+}
+
+.page_number{
+    color: black;
+}
+
+.page_number_current{
+    color: white;
+    background-color: #f07651;
+}
+
+.page_number:hover , .page_number:focus{
+    background-color: #eff2f5 ;
+    text-decoration: none;
+
+}
+
+
+
+.next , .page_number{
+    font-size: 1.18rem;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5em;
+    margin-top: 1em ;
+}
 
 
 

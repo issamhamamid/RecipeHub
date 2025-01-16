@@ -1,6 +1,7 @@
 import {RecipeRow} from "./RecipeRow.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {Pagination} from "./Pagination.jsx";
 
 
 export const Discover = () => {
@@ -34,6 +35,7 @@ export const Discover = () => {
                 </div>
             </div>
             {recipes}
+            <Pagination page={20}/>
 
 
         </div>
