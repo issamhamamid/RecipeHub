@@ -7,6 +7,7 @@ import {Login} from './components/Login.jsx'
 import {UserProvider} from "./components/UserProvider.jsx";
 import PrivateRouteLayout from "./Layouts/PrivateRouteLayout.jsx";
 import {Discover} from "./components/Discover.jsx";
+import {DiscoverHeader} from "./components/DiscoverHeader.jsx";
 
 function App() {
 
@@ -28,6 +29,8 @@ function App() {
 
 
                     </Route>
+
+                    <Route path='test' element={<DiscoverHeader/>}/>
 
 
                 </Routes>

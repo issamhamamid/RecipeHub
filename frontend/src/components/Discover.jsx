@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Pagination} from "./Pagination.jsx";
 import {useSearchParams} from "react-router-dom";
+import {DiscoverHeader} from "./DiscoverHeader.jsx";
 
 
 export const Discover = () => {
@@ -30,6 +31,8 @@ export const Discover = () => {
     })
 
     return (
+        <div>
+        <DiscoverHeader/>
         <div className='discover'>
             <div className='header'>
 
@@ -40,10 +43,14 @@ export const Discover = () => {
                     <p className='header-element none'>Protein</p>
                 </div>
             </div>
+
             {recipes}
+
+
             <Pagination page={page}/>
 
 
+        </div>
         </div>
     )
 }

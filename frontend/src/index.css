@@ -250,7 +250,7 @@ p,h1,h2{
 .content{
 
     margin-left: 240px;
-    margin-top: 4em;
+    margin-top: 0;
 }
 
 
@@ -433,6 +433,7 @@ input:hover{
 .discover{
     width: 94%;
 
+
 }
 
 .container , .discover , .pagination {
@@ -444,11 +445,13 @@ input:hover{
     display: flex;
     justify-content: flex-end;
 
+
 }
 
 .header-main{
     display: flex;
     width: 28em;
+    margin-top: 4.5em;
 
 }
 
@@ -602,6 +605,101 @@ input:hover{
     gap: .5em;
     margin-top: 1em ;
 }
+
+
+/*DISCOVER RECIPES PAGE HEADER*/
+
+.discover-header , .discover-header-scroll{
+    padding: 1em 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+
+}
+
+.discover-header-scroll{
+    background-color:#f8fafb ;
+}
+
+.discover-header-content{
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 2em;
+
+
+}
+
+
+
+.search{
+    display: flex;
+    align-items: center;
+    background-color: white;
+}
+
+.search:focus , .search:hover{
+    background-color: #f7f9f9;
+}
+
+.search:focus-within{
+    border: 1px solid black;
+
+}
+
+.input-search{
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+    padding: .2em .3em;
+}
+
+.input-search:hover ,.input-search:focus {
+    border: none;
+
+}
+
+.discover-search-logo {
+    font-size: 1.5rem;
+
+}
+
+.filter{
+    cursor: pointer;
+    padding: .5em 1.2em ;
+    border-radius: 100px;
+    display: flex;
+    gap: .2em;
+}
+
+.filter:hover , .filter:focus{
+    background-color: #f7f9f9;
+}
+
+.discover-filter-logo{
+    font-size: 1.25rem;
+
+}
+
+.search , .filter{
+    border: 1px solid #d6dfe6;
+}
+
+@media (max-width: 1000px) {
+
+    .discover-header-content{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .9em;
+    }
+
+    .header-main{
+        margin-top: 8em;
+    }
+}
+
 
 
 

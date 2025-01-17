@@ -12,7 +12,7 @@ export const Pagination = ({page}) => {
 
     useEffect(() => {
         axios.get('http://localhost:3000/recipes/count').then(response=>{
-            setCount(response.data.data)
+            setCount(String(response.data.data))
         })
     }, []);
 
@@ -40,12 +40,14 @@ export const Pagination = ({page}) => {
 
     const format = (array)=>{
         if (page > 4){
-            array.splice(1, 0, <BsThreeDots key="left-dots" />);
+            array.splice(1, 0, <BsThreeDots key={`left-dots-${page}`} />);
+
 
         }
 
         if(page < count -3){
-            array.splice(7, 0, <BsThreeDots key="right-dots" />);
+            array.splice(7, 0, <BsThreeDots key={`right-dots-${page}`}/>);
+
         }
         return array
     }
@@ -60,15 +62,17 @@ export const Pagination = ({page}) => {
 
 
 
+
+
     const paginationNumbers = format(
         generateArray().map((element) => {
             return element == page ? (
-                <a key={element} className="page_number_current">
+                <a key={String(element)} className="page_number_current">
                     {element}
                 </a>
             ) : (
                 <a
-                    key={element}
+                    key={String(element)}
                     onClick={() => {
                         setParams(addToParams('page', element));
                     }}
@@ -79,6 +83,8 @@ export const Pagination = ({page}) => {
             );
         })
     );
+
+
 
     return (
         <div className='pagination'>
