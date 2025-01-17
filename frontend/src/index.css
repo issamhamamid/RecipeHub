@@ -353,11 +353,27 @@ input:hover{
     border: none;
     border-radius: 10px;
     max-width: 470px;
+
 }
 
 .modal::backdrop{
     background: rgb(0 0 0 / .45);
 
+}
+
+.with-keyframes[open] {
+    animation: slide-in 0.3s ease normal;
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
@@ -474,8 +490,8 @@ input:hover{
 }
 
 .recipe-thumbnail{
-    width: 2.5em;
-    height: 2.5em;
+    width: 2.9em;
+    height: 2.9em;
     border-radius: 5px;
     object-fit: cover;
     object-position: center;

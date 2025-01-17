@@ -5,7 +5,7 @@ export const Modal = ({children , dialogRef ,confirmationText, onConfirm}) => {
 
     return (
 
-            <dialog className='modal' ref={dialogRef}>
+            <dialog className='modal with-keyframes' ref={dialogRef}>
                 <div>
                     {children}
                     <div className='modal-buttons'>

@@ -11,16 +11,18 @@ export const Discover = () => {
     const [recipesArray, setRecipesArray] = useState([]);
     const [params] = useSearchParams()
     const page = params.get('page') || 1
-
+    const [count, setCount] = useState(null);
 
 
 
     useEffect(() => {
 
-
-        axios.get(`http://localhost:3000/recipes?page=${page}`)
+        const link = params.size > 0 ? `http://localhost:3000/recipes?${params.toString()}` :
+            `http://localhost:3000/recipes?page=1`
+        axios.get(link)
                 .then(response =>{
-                    setRecipesArray(response.data.data)
+                    setRecipesArray(response.data.data.rows)
+                    setCount(response.data.data.count)
                 })
 
 
@@ -47,7 +49,7 @@ export const Discover = () => {
             {recipes}
 
 
-            <Pagination page={page}/>
+            <Pagination page={page} count={Math.ceil(count/17)}/>
 
 
         </div>

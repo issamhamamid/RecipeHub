@@ -6,36 +6,42 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 
-export const Pagination = ({page}) => {
+export const Pagination = ({page , count}) => {
     const [params , setParams] = useSearchParams()
-    const [count, setCount] = useState();
+    if(parseInt(count)===0){
+        return null
+    }
 
-    useEffect(() => {
-        axios.get('http://localhost:3000/recipes/count').then(response=>{
-            setCount(String(response.data.data))
-        })
-    }, []);
+
 
     const generateArray =()=>{
-        const totalNumbers = 7; // Total numbers in the array
-        const middleCount = totalNumbers - 2; // 5 numbers between 1 and 30
-
-        // Ensure the page value is central in the middle sequence
-        let offset = Math.floor(middleCount / 2);
-        let start = Math.max(2, page - offset); // Start near the page number
-        let end = start + middleCount - 1;
-
-        // Adjust if the end goes beyond 29
-        if (end >= count) {
-            start -= end - (count-1);
-        }
 
 
-        // Generate the middle sequence
-        const middle = Array.from({ length: middleCount }, (_, i) => start + i);
+    // If count is 7 or less, return an array from 1 to count
+            if (count <= 7) {
+                return Array.from({ length: count }, (_, i) => i + 1);
+            }
 
-        // Add 1 and 30 to the sequence
-        return [1, ...middle, count];
+            const totalNumbers = 7; // This value can be adjusted
+            const middleCount = totalNumbers - 2; // 5 numbers between 1 and 30
+
+    // Ensure the page value is central in the middle sequence
+            let offset = Math.floor(middleCount / 2);
+            let start = Math.max(2, page - offset); // Start near the page number
+            let end = start + middleCount - 1;
+
+    // Adjust if the end goes beyond 29
+            if (end >= count) {
+                start -= end - (count-1);
+            }
+
+    // Generate the middle sequence
+            const middle = Array.from({ length: middleCount }, (_, i) => start + i);
+
+    // Add 1 and 30 to the sequence
+            return [1, ...middle, count];
+
+
     }
 
     const format = (array)=>{
@@ -46,7 +52,7 @@ export const Pagination = ({page}) => {
         }
 
         if(page < count -3){
-            array.splice(7, 0, <BsThreeDots key={`right-dots-${page}`}/>);
+            array.splice(6, 0, <BsThreeDots key={`right-dots-${page}`}/>);
 
         }
         return array
