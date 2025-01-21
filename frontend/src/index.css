@@ -245,12 +245,25 @@ p,h1,h2{
 
 
 
+
+
 /*CONTENT FOR THE APP*/
 
 .content{
 
     margin-left: 240px;
     margin-top: 0;
+}
+
+@media (max-width: 800px) {
+    .sidebar{
+        display: none;
+    }
+
+    .content{
+        margin-left: 0;
+    }
+
 }
 
 
@@ -449,7 +462,6 @@ input:hover{
 .discover{
     width: 94%;
 
-
 }
 
 .container , .discover , .pagination {
@@ -467,7 +479,16 @@ input:hover{
 .header-main{
     display: flex;
     width: 28em;
+
+
+}
+
+.header-main {
     margin-top: 4.5em;
+}
+
+.recipe-details{
+    margin-top: 5.6em;
 
 }
 
@@ -514,6 +535,7 @@ input:hover{
     padding-bottom: .3em;
     border-bottom: 1px solid #d7e2ea;
     margin-bottom: .3em;
+
 }
 
 .recipe-nutrients{
@@ -705,16 +727,219 @@ input:hover{
 
 @media (max-width: 1000px) {
 
-    .discover-header-content{
+    .discover-header-content {
         flex-direction: column;
         align-items: flex-start;
         gap: .9em;
+
     }
 
     .header-main{
         margin-top: 8em;
+
+    }
+
+    .recipe-details{
+        margin-top: 7.5em;
+
     }
 }
+
+
+/*RECIPE PAGE*/
+
+.recipe-name{
+    font-weight: 500;
+    font-size: 1.65rem;
+}
+
+.recipe-details{
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+
+.recipe-view{
+    display: flex;
+    flex-direction: column;
+  
+}
+
+.recipe-img{
+    align-self: center;
+    max-width: 500px;
+    border-radius: 5px;
+    width: 100%;
+
+}
+.recipe-interactions{
+    display: flex;
+    align-self: center;
+    gap: .5em;
+    margin-top: .7em;
+    margin-bottom: 3.5em;
+
+}
+
+
+.interaction-btn{
+    padding: .3em .3em;
+    font-size: 1.5rem;
+    border: solid 1px #ccd8e1;
+    border-radius: 50%;
+    display: flex;           /* This helps center the icon */
+    align-items: center;     /* Vertically center */
+    justify-content: center; /* Horizontally center */
+    cursor: pointer;
+
+}
+
+.interaction-btn:hover , .interaction-btn:focus{
+    background-color: #f3f5f5;
+
+}
+
+.cook-prep{
+    font-size: 1.1rem;
+    font-weight: 390;
+}
+
+.strong{
+    font-weight: 520;
+}
+
+.ingredient{
+    display: flex;
+    gap: .4em;
+    height: 4em;
+    font-size: 1.1rem;
+    margin-bottom: 1em;
+}
+
+
+.ingredient-img{
+    width: 2.5em;
+    height: 2.5em;
+    object-fit: cover;
+    object-position: center;
+}
+
+.ingredient-name{
+    color: #00538f;
+    font-weight: 600;
+
+}
+
+.recipe-view  , .second{
+    margin-bottom: 1.6em;
+}
+
+.recipe-page-title{
+    font-weight: 500;
+    font-size: 1.37rem;
+    margin-bottom: .7em;
+
+}
+
+.directions{
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+.pie-chart{
+    width: 53%;
+    margin: 0 auto;
+}
+
+@media (min-width: 603px) {
+    .recipe-img{
+        width: 100%;
+    }
+    .nutritions-infos{
+        width: 70%;
+    }
+}
+
+
+@media (min-width: 980px) {
+    .recipe-details{
+        flex-direction: row;
+        gap: 6em;
+    }
+
+    .recipe-view{
+        width: 45%;
+    }
+
+    .recipe-cooking-details{
+        width: 55%;
+    }
+
+    .recipe-img{
+        max-width: 100%;
+    }
+    .nutritions-infos{
+        width: 100%;
+
+    }
+
+}
+
+
+@media (min-width: 1350px) {
+    .recipe-view{
+        width: 30%;
+    }
+
+    .recipe-cooking-details{
+        width: 70%;
+    }
+
+
+}
+
+@media (min-width: 1400px) {
+    .directions{
+        width: 70%;
+        font-size: 1.08rem;
+    }
+
+    .recipe-page-title{
+        font-size: 1.6rem;
+    }
+
+
+}
+
+.recipe-link:hover{
+    text-decoration: none;
+}
+
+
+.back-icon{
+    font-size: 1.27rem;
+}
+
+.back-link{
+    color: #21272c;
+    align-self: center;
+    display: flex;
+
+}
+
+.invisible{
+    display: none;
+}
+
+
+
+
+
+
+
+
 
 
 

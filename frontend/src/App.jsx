@@ -7,7 +7,8 @@ import {Login} from './components/Login.jsx'
 import {UserProvider} from "./components/UserProvider.jsx";
 import PrivateRouteLayout from "./Layouts/PrivateRouteLayout.jsx";
 import {Discover} from "./components/Discover.jsx";
-import {DiscoverHeader} from "./components/DiscoverHeader.jsx";
+
+import {RecipePage} from "./components/RecipePage.jsx";
 
 function App() {
 
@@ -18,8 +19,9 @@ function App() {
                     <Route element={<PrivateRouteLayout />}>
                         <Route path = '/app'  element={<MainLayout/>} >
                             <Route path='recipes' element={<Discover/>}/>
-                            <Route path='favorites' element={<div >fgf</div>}/>
+                            <Route path='favorites' element={<RecipePage/>}/>
                             <Route path='settings' element={<div>fgf</div>}/>
+                            <Route path='recipes/:id' element={<RecipePage/>}/>
 
                         </Route>
                     </Route>
@@ -30,7 +32,7 @@ function App() {
 
                     </Route>
 
-                    <Route path='test' element={<DiscoverHeader/>}/>
+
 
 
                 </Routes>

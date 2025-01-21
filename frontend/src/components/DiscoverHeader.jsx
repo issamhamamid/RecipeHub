@@ -3,11 +3,12 @@ import { FiFilter } from "react-icons/fi";
 import { RiSearchLine } from "react-icons/ri";
 import {useEffect, useRef, useState} from "react";
 import {useSearchParams} from "react-router-dom";
+import {useScroll} from "../customHooks/useScroll.js";
 
 
 
 export const DiscoverHeader = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
+
     const [search, setSearch] = useState('');
     const [params , setParams] = useSearchParams()
     const firstRender = useRef(0);
@@ -19,21 +20,7 @@ export const DiscoverHeader = () => {
         setSearch(event.target.value)
     }
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 3) {
-                setIsScrolled(true); // Change background when scroll is more than 50px
-            } else {
-                setIsScrolled(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll); // Cleanup on component unmount
-        };
-    }, []);
+    const isScrolled = useScroll(3)
 
 
     useEffect(() => {
