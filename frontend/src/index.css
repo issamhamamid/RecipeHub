@@ -924,8 +924,8 @@ input:hover{
 
 .back-link{
     color: #21272c;
-    align-self: center;
     display: flex;
+
 
 }
 
@@ -933,7 +933,17 @@ input:hover{
     display: none;
 }
 
+.one-serving{
+    margin-bottom: 1em;
+    font-size: 1.14rem;
+    font-weight: 600;
+}
 
+.info-row{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.05rem;
+}
 
 
 

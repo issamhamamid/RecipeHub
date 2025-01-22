@@ -19,7 +19,7 @@ function App() {
                     <Route element={<PrivateRouteLayout />}>
                         <Route path = '/app'  element={<MainLayout/>} >
                             <Route path='recipes' element={<Discover/>}/>
-                            <Route path='favorites' element={<RecipePage/>}/>
+                            <Route path='favorites' element={<div></div>}/>
                             <Route path='settings' element={<div>fgf</div>}/>
                             <Route path='recipes/:id' element={<RecipePage/>}/>
 

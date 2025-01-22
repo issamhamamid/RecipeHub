@@ -1,7 +1,8 @@
 import {Link, useSearchParams} from "react-router-dom";
 
 export const RecipeRow = ({id ,name , image_url , calories , carbs , fat , protein}) => {
-    const params = useSearchParams()
+    const [params] = useSearchParams()
+
 
 
     return (

@@ -16,7 +16,7 @@ export const RecipePage = () => {
     const [recipe, setRecipe] = useState('');
     const [ingredients, setIngredients] = useState([])
     const location = useLocation()
-    console.log(location.state.from)
+
 
 
 
@@ -40,7 +40,8 @@ export const RecipePage = () => {
         <>
         <header className={isScrolled ? 'discover-header-scroll' : 'discover-header'}>
             <div className='discover-header-content'>
-                <Link className='back-link invisible' to='http://localhost:5173/app/recipes' >
+                <Link className={location.state?.from || location.state?.from === ''  ?  'back-link' : 'back-link invisible '} to={ location.state?.from === ''
+                     ? 'http://localhost:5173/app/recipes' :  `http://localhost:5173/app/recipes?${location.state?.from}` } >
 
                     <IoArrowBackOutline className='back-icon'/>
                 </Link>
@@ -70,26 +71,43 @@ export const RecipePage = () => {
                     <div className='pie-chart'>
                         <PieChart
                             data={[
-                                { title: 'One', value: 10, color: '#11bdcd' },
-                                { title: 'Two', value: 15, color: '#a375ff' },
-                                { title: 'Three', value: 20, color: '#f1b604' },
+                                {title: 'Fat', value: recipe.fat, color: '#11bdcd'},
+                                {title: 'Protein', value: recipe.protein, color: '#a375ff'},
+                                {title: 'Carbs', value: recipe.carbs, color: '#f1b604'},
                             ]}
                             animate={true}
-                            label={({ dataEntry })=>{
+                            label={({dataEntry}) => {
 
-                                return (`${dataEntry.title}: ${dataEntry.percentage.toFixed(1)}%`)
-
+                                return dataEntry.percentage > 30 ? (`${dataEntry.title}: ${dataEntry.percentage.toFixed(1)}%`) : null
 
 
                             }}
-                            labelStyle = {{
+                            labelStyle={{
                                 fill: 'white',
                                 fontSize: '6px',
                                 textAnchor: 'middle',
-                                fontWeight : '600'
+                                fontWeight: '600'
                             }}
-                        />;
+                        />
                     </div>
+                    <p className='one-serving'>For 1 serving</p>
+                    <div className='info-row'>
+                        <p>Calories</p>
+                        <p>{recipe.calories}</p>
+                    </div>
+                    <div className='info-row'>
+                        <p><span className="dot yellow"></span> Carbs</p>
+                        <p> {recipe.carbs} g</p>
+                    </div>
+                    <div className='info-row'>
+                        <p><span className="dot blue"></span> Fats</p>
+                        <p>{recipe.fat} g</p>
+                    </div>
+                    <div className='info-row'>
+                        <p><span className="dot purple"></span> Protein</p>
+                        <p>{recipe.protein} g</p>
+                    </div>
+
 
                 </div>
             </div>
