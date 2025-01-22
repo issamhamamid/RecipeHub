@@ -4,7 +4,7 @@ import { IoMdAdd } from "react-icons/io";
 import { AiOutlineLike } from "react-icons/ai";
 import { PieChart } from 'react-minimal-pie-chart';
 import {Link, useLocation, useParams} from "react-router-dom";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {IngredientRow} from "./IngredientRow.jsx";
 import { IoArrowBackOutline } from "react-icons/io5";
@@ -13,11 +13,15 @@ import { FaRegCommentDots } from "react-icons/fa";
 import {Modal} from "./Modal.jsx";
 import {ModalTitleWithIcon} from "./ModalTitleWithIcon.jsx";
 import { IoSend } from "react-icons/io5";
+import {useUser} from "../customHooks/useUser.js";
+import {jwtDecode} from "jwt-decode";
 
 
 
 
 export const RecipePage = () => {
+    const {jwt} = useUser()
+    const decoded = jwtDecode(jwt);
     const isScrolled = useScroll(3)
     const params = useParams()
     const [recipe, setRecipe] = useState({
@@ -34,12 +38,14 @@ export const RecipePage = () => {
     const [ingredients, setIngredients] = useState([])
     const location = useLocation()
     const dialogRef = useRef(null);
-
+    const [comments, setComments] = useState([]);
+    const [comment, setComment] = useState('')
 
 
     useEffect(() => {
         const recipeLink = `http://localhost:3000/recipes/food/${params.id}`
         const ingredientsLink = `http://localhost:3000/recipes/food/${params.id}/ingredients`
+        const commentsLink = `http://localhost:3000/recipes/food/${params.id}/comments`
         axios.get(recipeLink).then(response =>{
             setRecipe(response.data.data.recipe)
         })
@@ -47,6 +53,11 @@ export const RecipePage = () => {
         axios.get(ingredientsLink).then(response =>{
             setIngredients(response.data.data)
         })
+
+        axios.get(commentsLink).then(response =>{
+            setComments(response.data.data)
+        })
+
     }, []);
 
     const ingredientsUI = ingredients.map((ingredient)=>{
@@ -57,11 +68,29 @@ export const RecipePage = () => {
         dialogRef.current.close()
     }
 
-    function handleEnter(event) {
+    const postComment = async ()=>{
+        const commentObj = {
+            "content" : comment,
+            "recipe_id" : recipe.id,
+            "user_id" : decoded.id
+        }
+
+       const response =  await axios.post('http://localhost:3000/comments' ,  commentObj)
+       setComments([... comments , {content: comment , User : {username : decoded.username}}])
+
+    }
+
+   async  function handleEnter(event) {
         if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault(); // Prevent the default behavior (new line)
+            await postComment()
 
         }
+    }
+
+    const handleChange = (e)=>{
+        const comment = e.target.value
+        setComment(comment)
     }
 
     return (
@@ -162,15 +191,16 @@ export const RecipePage = () => {
             <Modal className='with-keyframes comments-modal' onConfirm={()=>{console.log('comments')}} dialogRef={dialogRef} confirmationText='Log out' showButtons={false}>
                 <ModalTitleWithIcon close={close}>Comments</ModalTitleWithIcon>
                 <div className='comments'>
-                    <Comment/>
-                    <Comment/>
-                    <Comment/>
+                    {comments.map((comment)=>{
+                        return <Comment key = {comment.id} username={comment.User.username} content={comment.content}/>
+                    })}
+
                 </div>
                 <div className='post-comment'>
-                    <form action="#" method="post">
+                    <form method="post">
                         <label htmlFor="comment">Post a Comment</label>
                         <div className='input-wrapper'>
-                            <textarea onKeyDown={handleEnter} autoComplete="off" className='comment-input'  id="comment" name="comment"
+                            <textarea value={comment} onChange={handleChange} onKeyDown={handleEnter} autoComplete="off" className='comment-input'  id="comment" name="comment"
                                    placeholder="Enter your comment here"/>
                             <div className='send-comment'>
                                 <IoSend className='send-btn'/>

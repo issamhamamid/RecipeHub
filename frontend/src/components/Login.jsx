@@ -11,11 +11,8 @@ export const Login = () => {
     const fields = ['username' , 'password']
     const jsonArray = ['username' , 'password']
 
-    const dataValidator = (data)=>{
-        return true
-    }
 
-   const [data , submitAction , isPending] = useForm( link, jsonArray ,fields , dataValidator )
+   const [data , submitAction , isPending] = useForm( link, jsonArray ,fields )
 
 
     return (

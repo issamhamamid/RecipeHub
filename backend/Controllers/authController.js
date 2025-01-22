@@ -52,7 +52,8 @@ module.exports.register = asyncHandler(async (req, res , next) => {
 module.exports.login = async (req, res) => {
     const payload = {
         username: req.body.username,
-        role : req.user.role
+        role : req.user.role,
+        id : req.user.id
     }
     const token = jwt.sign(payload, process.env.PRIVATE_KEY, { algorithm: 'RS256', expiresIn: '1h' });
     res.set('Authorization', token);

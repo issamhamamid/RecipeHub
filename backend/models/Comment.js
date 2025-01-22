@@ -3,6 +3,7 @@ const sequelize = require('../config/database'); // Adjust this path to match yo
 const Recipe = require('../models/Recipe');
 const RecipeIngredient = require('../models/RecipeIngredient');
 const MealPlanRecipes = require('./MealPlanRecipe');
+const User = require('../models/User')
 
 
 const Comment = sequelize.define('Comment', {
@@ -50,4 +51,10 @@ Recipe.hasMany(Comment, {
 Comment.belongsTo(Recipe, {
     foreignKey: 'recipe_id',
 });
+
+
+User.hasMany(Comment, { foreignKey: 'user_id' });
+
+Comment.belongsTo(User, { foreignKey: 'user_id' });
+
 module.exports = Comment;

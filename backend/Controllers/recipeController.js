@@ -1,4 +1,5 @@
 const Recipe = require("../models/Recipe");
+const User = require('../models/User')
 const responseHandler = require("../Util/responseHandler");
 const {asyncHandler} = require("../Util/asyncHandler");
 const customError = require("../Error/customError");
@@ -45,15 +46,30 @@ module.exports.deleteRecipe = asyncHandler( async (req, res, next) => {
 
 
 module.exports.getRecipeComments = asyncHandler(async (req , res , next) =>{
-    const id = Number(req.params.id)
+    const recipe = req.recipe
+    if (!recipe) {
+        throw new customError(404 , "NOT FOUND")
+    }
 
-    const  comments = await Comment.findAll({
-        where: {
-            id
-        }
+    const data = await recipe.getComments({
+        include: {
+            model: User,
+            attributes: ['username'], // Only fetch specific columns
+        },
     })
 
-    responseHandler(req , res , 200 , comments)
+    // const  comments = await Comment.findAll({
+    //
+    //     where: {
+    //         id
+    //     } ,
+    //     include: {
+    //         model: User,
+    //         attributes: ['username'], // Only fetch specific columns
+    //     },
+    // } )
+
+    responseHandler(req , res , 200 , data)
 
 
 })

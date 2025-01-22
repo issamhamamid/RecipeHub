@@ -3,7 +3,9 @@ import {useUser} from "./useUser.js";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
-const useForm = (link, jsonObjArray, fields , dataValidator)=>{
+const useForm = (link, jsonObjArray, fields , dataValidator = ()=>{
+    return true
+})=>{
 
     const {setJwt } = useUser()
     let Navigate = useNavigate()
