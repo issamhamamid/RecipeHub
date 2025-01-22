@@ -6,6 +6,7 @@ const {asyncHandler} = require('../Util/asyncHandler')
 const {syncHandler} = require('../Util/syncHandler')
 const customError = require('../Error/customError')
 const nodemailer = require('nodemailer');
+const passport = require("passport");
 
 
 
@@ -25,7 +26,7 @@ module.exports.verifyUserExists = asyncHandler(async (req, res, next) => {
         return next()
     }
 
-    throw new Error('invalid credentials , please try again');
+    throw new customError(401 , 'invalid credentials , please try again');
 
 })
 
@@ -61,10 +62,23 @@ module.exports.login = async (req, res) => {
 
 }
 
+module.exports.validateJwt = asyncHandler( async (req , res , next)=>{
+
+
+    passport.authenticate('jwt', { session: false } , (err , user , info)=>{
+        if (err) {
+            return res.status(500).json({ message: 'Internal Server Error', error: err });
+        }
+
+
+            responseHandler(req , res , 200 , !!user )
+
+    }) (req, res, next);
+})
 
 module.exports.forAdmins= syncHandler((req , res  , next)=>{
     if(req.user.role === "admin"){
-        return next()
+        return next();
     }
 
     throw new customError(401 , "You do not have permission to access this resource.")

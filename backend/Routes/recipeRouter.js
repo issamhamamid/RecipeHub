@@ -23,16 +23,19 @@ recipeRouter.route('/')
     .get(recipeController.GetAllRecipes)
     .post(recipeController.createRecipe)
 
+recipeRouter.route('/count')
+    .get(recipeController.countRecipes)
 
-
-recipeRouter.route('/:id')
+recipeRouter.route('/food/:id')
     .get(recipeController.getRecipeById)
     .delete(recipeController.deleteRecipe)
 
-recipeRouter.route('/:id/comments')
+recipeRouter.route('/food/:id/comments')
     .get(recipeController.getRecipeComments)
 
-recipeRouter.route('/:id/ingredients')
+recipeRouter.route('/food/:id/ingredients')
     .get(recipeController.getRecipeIngredients)
+
+
 
 module.exports = recipeRouter;

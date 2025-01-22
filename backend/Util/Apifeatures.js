@@ -9,8 +9,8 @@ class Apifeatures{
 
     pagination(){
         if(Number(this.queryObj.page)){
-            this.query.offset = (this.queryObj.page - 1) * 5
-            this.query.limit = 5;
+            this.query.offset = (this.queryObj.page - 1) * 17
+            this.query.limit = 17;
         }
         return this
     }

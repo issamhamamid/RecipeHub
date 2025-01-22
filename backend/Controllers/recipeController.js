@@ -9,8 +9,8 @@ const Comment = require("../models/Comment");
 module.exports.GetAllRecipes = asyncHandler(async (req , res,next) => {
     let query = {}
     let features = new Apifeatures(req.query ,query , ['category'] ).pagination().search().nutritions().filtering()
-    features.query.attributes =  ['id', 'name' , 'calories' , 'carbs' ,'fat' , 'protein']
-    const data = await Recipe.findAll(features.query)
+    features.query.attributes =  ['id', 'name' , 'calories' , 'carbs' ,'fat' , 'protein' , 'image_url']
+    const data = await Recipe.findAndCountAll(features.query)
 
     responseHandler(req , res , 200 , data);
 })
@@ -24,13 +24,7 @@ module.exports.createRecipe = asyncHandler(async  (req , res , next) => {
 
 module.exports.getRecipeById = asyncHandler(async (req , res , next) => {
         let data = {recipe :req.recipe}
-        data.ingredients =  await req.recipe.getRecipeIngredients({
-
-        })
-
-
         responseHandler(req , res , 200 , data);
-
 
 })
 
@@ -75,4 +69,9 @@ module.exports.getRecipeIngredients = asyncHandler(async (req , res , next)=>{
 
     })
     responseHandler(req , res , 200 , data)
+})
+
+module.exports.countRecipes = asyncHandler(async (req , res , next)=>{
+    const count = await Recipe.count()
+    responseHandler(req , res , 200 , Math.ceil(count/17))
 })

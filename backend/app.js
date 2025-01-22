@@ -12,7 +12,8 @@ const cors = require('cors')
 
 init(passport)
 app.use(cors({
- origin : 'http://localhost:5173'
+ origin : 'http://localhost:5173',
+ exposedHeaders: 'Authorization'
 }))
 app.use(passport.initialize());
 app.use(express.json());
