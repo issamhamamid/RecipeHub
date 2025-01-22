@@ -211,6 +211,8 @@ p,h1,h2{
 
 .side-bar-text{
     margin-top: .06em;
+    letter-spacing: .1px;
+
 
 }
 
@@ -362,14 +364,14 @@ input:hover{
 
 
 .modal{
-    padding: 1em 2.5em;
+    padding: 1em 1.3em;
     border: none;
     border-radius: 10px;
     max-width: 470px;
 
 }
 
-.modal::backdrop{
+.modal::backdrop , .comments-modal::backdrop{
     background: rgb(0 0 0 / .45);
 
 }
@@ -566,6 +568,11 @@ input:hover{
 .recipe-title{
     color: #0053ac;
     font-weight: 400;
+
+}
+
+.recipe-title:hover{
+    text-decoration: underline;
 }
 
 
@@ -740,7 +747,7 @@ input:hover{
     }
 
     .recipe-details{
-        margin-top: 7.5em;
+        margin-top: 10em;
 
     }
 }
@@ -944,6 +951,134 @@ input:hover{
     justify-content: space-between;
     font-size: 1.05rem;
 }
+
+/*COMMENTS MODAL */
+
+
+.modal-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.close-btn{
+    font-size: 1.3rem;
+}
+
+.comments-modal{
+
+    padding: 1em 1.3em;
+    border-radius: 10px;
+    width: 750px;
+    margin-top: 2.5em;
+    border: none;
+
+}
+
+.comment{
+    display: flex;
+    gap: .5em;
+    margin-bottom: .9em;
+}
+
+.user-avatar{
+    width: 35px;
+    height: 35px;
+    background-color: #f07651;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: .1em;
+
+}
+
+.comment-content{
+    background-color: #e4e4e6;
+    border-radius: 18px;
+    padding: .2em 1em;
+
+}
+
+
+.post-time{
+    margin-left: .9em;
+}
+
+.comment-owner{
+    font-weight: 600;
+}
+
+.post-time{
+    font-size: .8rem;
+    font-weight: 350;
+}
+
+.comment-text{
+    font-weight: 390;
+    color: #2c3237;
+}
+
+
+.comment-input{
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    padding: 1em 1em;
+    padding-bottom: 1.3em;
+    font-size: 1rem;
+    resize: none;
+
+}
+
+
+
+.comment-input , .comment-input:hover{
+    background-color: #f3f4f6;
+
+}
+
+.input-wrapper{
+    display: flex;
+    background-color: #f3f4f6;
+    padding-right: .8em;
+    padding-bottom: .8em;
+
+
+}
+
+
+.send-comment{
+    align-self: flex-end;
+    font-size: .8rem;
+    background-color: #f07651;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+}
+
+.send-btn{
+    margin-left: .1em;
+}
+
+.send-comment:hover{
+    background: white;
+    color: #f07651;
+    border: 1.8px solid #f07651;
+}
+
+
+
+
 
 
 

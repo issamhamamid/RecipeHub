@@ -4,19 +4,36 @@ import { IoMdAdd } from "react-icons/io";
 import { AiOutlineLike } from "react-icons/ai";
 import { PieChart } from 'react-minimal-pie-chart';
 import {Link, useLocation, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {IngredientRow} from "./IngredientRow.jsx";
 import { IoArrowBackOutline } from "react-icons/io5";
+import {Comment} from "./Comment.jsx";
+import { FaRegCommentDots } from "react-icons/fa";
+import {Modal} from "./Modal.jsx";
+import {ModalTitleWithIcon} from "./ModalTitleWithIcon.jsx";
+import { IoSend } from "react-icons/io5";
+
+
 
 
 export const RecipePage = () => {
     const isScrolled = useScroll(3)
     const params = useParams()
-    const [recipe, setRecipe] = useState('');
+    const [recipe, setRecipe] = useState({
+        fat: 0,
+        protein: 0,
+        carbs: 0,
+        calories: 0,
+        name: '',
+        image_url: '',
+        prep_time: 0,
+        cook_time: 0,
+        instructions: '',
+    });
     const [ingredients, setIngredients] = useState([])
     const location = useLocation()
-
+    const dialogRef = useRef(null);
 
 
 
@@ -35,6 +52,17 @@ export const RecipePage = () => {
     const ingredientsUI = ingredients.map((ingredient)=>{
         return <IngredientRow key = {ingredient.id} {...ingredient} quantity={ingredient.RecipeIngredient.quantity}/>
     })
+
+    const close = ()=>{
+        dialogRef.current.close()
+    }
+
+    function handleEnter(event) {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault(); // Prevent the default behavior (new line)
+
+        }
+    }
 
     return (
         <>
@@ -66,10 +94,13 @@ export const RecipePage = () => {
                     <div className='interaction-btn'>
                         <AiOutlineLike/>
                     </div>
+                    <div onClick={() => dialogRef.current?.showModal()} className='interaction-btn'>
+                        <FaRegCommentDots/>
+                    </div>
                 </div>
                 <div className='nutritions-infos'>
                     <div className='pie-chart'>
-                        <PieChart
+                    <PieChart
                             data={[
                                 {title: 'Fat', value: recipe.fat, color: '#11bdcd'},
                                 {title: 'Protein', value: recipe.protein, color: '#a375ff'},
@@ -128,6 +159,27 @@ export const RecipePage = () => {
         </div>
 
     </div>
+            <Modal className='with-keyframes comments-modal' onConfirm={()=>{console.log('comments')}} dialogRef={dialogRef} confirmationText='Log out' showButtons={false}>
+                <ModalTitleWithIcon close={close}>Comments</ModalTitleWithIcon>
+                <div className='comments'>
+                    <Comment/>
+                    <Comment/>
+                    <Comment/>
+                </div>
+                <div className='post-comment'>
+                    <form action="#" method="post">
+                        <label htmlFor="comment">Post a Comment</label>
+                        <div className='input-wrapper'>
+                            <textarea onKeyDown={handleEnter} autoComplete="off" className='comment-input'  id="comment" name="comment"
+                                   placeholder="Enter your comment here"/>
+                            <div className='send-comment'>
+                                <IoSend className='send-btn'/>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </Modal>
         </>
-)
+    )
 }

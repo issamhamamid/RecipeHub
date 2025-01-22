@@ -49,7 +49,7 @@ const Sidebar = ()=>{
                 </div>
                 </a>
 
-            <Modal onConfirm={logout} dialogRef={dialogRef} confirmationText='Log out'>
+            <Modal onConfirm={logout} dialogRef={dialogRef} confirmationText='Log out' showButtons={true} className='modal with-keyframes'>
                 <ModalTitle>Are you sure you want to log out?</ModalTitle>
                 <ModalMainText>You&#39;re about to log out of your account. Press &#39;Log out to proceed and you&#39;ll be redirected to the login page.</ModalMainText>
             </Modal>

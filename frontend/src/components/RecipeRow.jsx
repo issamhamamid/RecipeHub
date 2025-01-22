@@ -12,7 +12,7 @@ export const RecipeRow = ({id ,name , image_url , calories , carbs , fat , prote
                     <img className='recipe-thumbnail'
                          src={image_url}
                          alt='recipe image'/>
-                    <a className='recipe-title'>{name}</a>
+                    <p className='recipe-title'>{name}</p>
 
                 </div>
             </Link>
