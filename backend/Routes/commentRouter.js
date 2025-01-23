@@ -1,10 +1,11 @@
 const commentController = require('../Controllers/commentController')
 const express = require('express');
+const passport = require("passport");
 
 commentRouter = express.Router()
 
 commentRouter.route('/' ,)
-.post(commentController.createComment)
+.post(passport.authenticate('jwt', { session: false }) , commentController.verifyUserIdentity, commentController.createComment)
 
 
 

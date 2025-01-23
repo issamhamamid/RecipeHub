@@ -9,6 +9,7 @@ import PrivateRouteLayout from "./Layouts/PrivateRouteLayout.jsx";
 import {Discover} from "./components/Discover.jsx";
 
 import {RecipePage} from "./components/RecipePage.jsx";
+import {DayJs} from "./components/DayJs.jsx";
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
                     <Route element={<PrivateRouteLayout />}>
                         <Route path = '/app'  element={<MainLayout/>} >
                             <Route path='recipes' element={<Discover/>}/>
-                            <Route path='favorites' element={<div></div>}/>
+                            <Route path='favorites' element={<DayJs/>}/>
                             <Route path='settings' element={<div>fgf</div>}/>
                             <Route path='recipes/:id' element={<RecipePage/>}/>
 

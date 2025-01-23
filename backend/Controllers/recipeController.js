@@ -6,6 +6,7 @@ const customError = require("../Error/customError");
 const RecipeIngredient = require("../models/RecipeIngredient");
 const Apifeatures = require('../Util/Apifeatures')
 const Comment = require("../models/Comment");
+const {syncHandler} = require("../Util/syncHandler");
 
 module.exports.GetAllRecipes = asyncHandler(async (req , res,next) => {
     let query = {}
@@ -29,15 +30,19 @@ module.exports.getRecipeById = asyncHandler(async (req , res , next) => {
 
 })
 
+module.exports.verifyRecipe = syncHandler((req , res , next)=>{
+    const recipe = req.recipe
+
+    if (!recipe) {
+        throw new customError(404 , "NOT FOUND")
+    }
+
+    next()
+})
+
 
 module.exports.deleteRecipe = asyncHandler( async (req, res, next) => {
-
         const recipe = req.recipe
-
-        if (!recipe) {
-            throw new customError(404 , "NOT FOUND")
-        }
-
         await recipe.destroy();
 
         responseHandler(req , res , 200 , "");
@@ -47,9 +52,6 @@ module.exports.deleteRecipe = asyncHandler( async (req, res, next) => {
 
 module.exports.getRecipeComments = asyncHandler(async (req , res , next) =>{
     const recipe = req.recipe
-    if (!recipe) {
-        throw new customError(404 , "NOT FOUND")
-    }
 
     const data = await recipe.getComments({
         include: {
@@ -58,19 +60,7 @@ module.exports.getRecipeComments = asyncHandler(async (req , res , next) =>{
         },
     })
 
-    // const  comments = await Comment.findAll({
-    //
-    //     where: {
-    //         id
-    //     } ,
-    //     include: {
-    //         model: User,
-    //         attributes: ['username'], // Only fetch specific columns
-    //     },
-    // } )
-
     responseHandler(req , res , 200 , data)
-
 
 })
 
@@ -78,9 +68,6 @@ module.exports.getRecipeComments = asyncHandler(async (req , res , next) =>{
 module.exports.getRecipeIngredients = asyncHandler(async (req , res , next)=>{
     const recipe = req.recipe
 
-    if (!recipe) {
-        throw new customError(404 , "NOT FOUND")
-    }
     const data = await recipe.getRecipeIngredients({
 
     })

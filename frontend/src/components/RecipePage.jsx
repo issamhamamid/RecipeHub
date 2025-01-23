@@ -15,11 +15,13 @@ import {ModalTitleWithIcon} from "./ModalTitleWithIcon.jsx";
 import { IoSend } from "react-icons/io5";
 import {useUser} from "../customHooks/useUser.js";
 import {jwtDecode} from "jwt-decode";
-
+import dayjs from "dayjs";
+import relativeTime from 'dayjs/plugin/relativeTime'
 
 
 
 export const RecipePage = () => {
+
     const {jwt} = useUser()
     const decoded = jwtDecode(jwt);
     const isScrolled = useScroll(3)
@@ -40,6 +42,7 @@ export const RecipePage = () => {
     const dialogRef = useRef(null);
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('')
+    dayjs.extend(relativeTime);
 
 
     useEffect(() => {
@@ -55,7 +58,9 @@ export const RecipePage = () => {
         })
 
         axios.get(commentsLink).then(response =>{
-            setComments(response.data.data)
+            setComments(response.data.data.map((comment)=>{
+                return {...comment , relativeTime : dayjs(comment.created_at).fromNow() }
+            }))
         })
 
     }, []);
@@ -68,6 +73,7 @@ export const RecipePage = () => {
         dialogRef.current.close()
     }
 
+
     const postComment = async ()=>{
         const commentObj = {
             "content" : comment,
@@ -75,8 +81,14 @@ export const RecipePage = () => {
             "user_id" : decoded.id
         }
 
-       const response =  await axios.post('http://localhost:3000/comments' ,  commentObj)
-       setComments([... comments , {content: comment , User : {username : decoded.username}}])
+       const response =  await axios.post('http://localhost:3000/comments' ,  commentObj , {
+           headers: {
+               'Authorization': `Bearer ${jwt}`,
+               'Content-Type': 'application/json'
+           }
+       })
+       setComments([... comments , {id : 0 , content: comment ,created_at: new Date().toISOString() , relativeTime : dayjs(comment.created_at).fromNow() , User : {username : decoded.username}}])
+       setComment('')
 
     }
 
@@ -92,6 +104,22 @@ export const RecipePage = () => {
         const comment = e.target.value
         setComment(comment)
     }
+
+    useEffect(() => {
+        // Set up the interval
+        const interval = setInterval(() => {
+            // Code to execute every 1 minute
+            setComments(prevComments => prevComments.map((comment) => {
+                return { ...comment, relativeTime: dayjs(comment.created_at).fromNow() }
+            }));
+
+        }, 60000); // 60000 milliseconds = 1 minute
+
+        // Clean up the interval on component unmount
+        return () => clearInterval(interval);
+    }, []);// Empty dependency array means this runs once on mount and cleans up on unmount
+
+
 
     return (
         <>
@@ -192,7 +220,7 @@ export const RecipePage = () => {
                 <ModalTitleWithIcon close={close}>Comments</ModalTitleWithIcon>
                 <div className='comments'>
                     {comments.map((comment)=>{
-                        return <Comment key = {comment.id} username={comment.User.username} content={comment.content}/>
+                        return <Comment key = {comment.id} username={comment.User.username} content={comment.content} relativeTime={comment.relativeTime}/>
                     })}
 
                 </div>
@@ -202,7 +230,7 @@ export const RecipePage = () => {
                         <div className='input-wrapper'>
                             <textarea value={comment} onChange={handleChange} onKeyDown={handleEnter} autoComplete="off" className='comment-input'  id="comment" name="comment"
                                    placeholder="Enter your comment here"/>
-                            <div className='send-comment'>
+                            <div onClick={postComment} className='send-comment'>
                                 <IoSend className='send-btn'/>
                             </div>
 

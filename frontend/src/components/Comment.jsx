@@ -1,4 +1,4 @@
-export const Comment = ({content , username}) => {
+export const Comment = ({content , username , relativeTime}) => {
     return (
 
         <div className='comment'>
@@ -11,7 +11,7 @@ export const Comment = ({content , username}) => {
                     <p className='comment-owner'>{username}</p>
                     <p className='comment-text'>{content}</p>
                 </div>
-                <p className='post-time'>3hrs ago.</p>
+                <p className='post-time'>{relativeTime}</p>
 
             </div>
         </div>

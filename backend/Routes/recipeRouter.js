@@ -4,20 +4,26 @@ const passport = require('passport');
 const authController = require('../Controllers/authController')
 const customError = require("../Error/customError");
 const Recipe = require("../models/Recipe");
+const {idAsyncHandler} = require("../Util/idAsyncHandler");
 
 
 const recipeRouter = express.Router();
 
 
-recipeRouter.param('id' , async (req , res , next , value) =>{
+recipeRouter.param('id' , idAsyncHandler(async (req , res , next , value) =>{
     if(Number(value)){
         req.recipe = await Recipe.findByPk(value)
+        if (!req.recipe) {
+            throw new customError(404 , "NOT FOUND")
+        }
         return next()
     }
     else{
-        throw new customError(400 , "Please provide a valid recipe ID")
+        throw new customError(404 , "PLEASE PROVIDE A VALID RECIPE ID")
     }
-})
+}))
+
+
 
 recipeRouter.route('/')
     .get(recipeController.GetAllRecipes)
@@ -31,10 +37,10 @@ recipeRouter.route('/food/:id')
     .delete(recipeController.deleteRecipe)
 
 recipeRouter.route('/food/:id/comments')
-    .get(recipeController.getRecipeComments)
+    .get(recipeController.verifyRecipe , recipeController.getRecipeComments)
 
 recipeRouter.route('/food/:id/ingredients')
-    .get(recipeController.getRecipeIngredients)
+    .get(recipeController.verifyRecipe , recipeController.getRecipeIngredients)
 
 
 
