@@ -711,16 +711,19 @@ input:hover{
 
 }
 
-.filter{
+.filter {
     cursor: pointer;
-    padding: .5em 1.2em ;
+    padding: .5em 1.1em ;
     border-radius: 100px;
     display: flex;
     gap: .2em;
+    background-color: white;
+    justify-content: center;
 }
 
 .filter:hover , .filter:focus{
     background-color: #f7f9f9;
+
 }
 
 .discover-filter-logo{
@@ -755,7 +758,7 @@ input:hover{
 
 /*RECIPE PAGE*/
 
-.recipe-name{
+.recipe-name , .planner-title{
     font-weight: 500;
     font-size: 1.65rem;
 }
@@ -1078,9 +1081,187 @@ input:hover{
 
 
 
+/*MEAL PLANNER PAGE*/
 
 
 
+.meal-planner-main{
+    margin-top: 10em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.meal-planner-img , .meal-planner-slogan{
+    margin-bottom: .5em;
+}
+
+.meal-planner-slogan{
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+
+
+.manually, .generate-btn{
+    font-size: 1.06rem;
+    width: 240px;
+    text-align: center;
+}
+
+
+
+.manually{
+    border-color : #d5dfe6;
+
+}
+
+.generate-btn{
+    cursor: pointer;
+    padding: .5em 1.1em ;
+    border-radius: 100px;
+    border: none;
+    background-color: #f07651;
+    display: flex;
+    align-items: center; /* Vertically center the icon and text */
+    justify-content: center; /* Horizontally center the icon and text */
+    gap: .2em;
+    color: white;
+}
+
+.generate-btn:hover{
+    background-color: #f17d5a;
+}
+
+.generate-icon{
+    font-size: 1.35rem;
+}
+
+.meal-planner-btn{
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+
+@media (min-width: 900px) {
+    .meal-planner-btn{
+        flex-direction: row;
+    }
+
+    .manually, .generate-btn{
+        width: auto;
+    }
+}
+
+.meal-plan-page{
+    margin-top: 6em;
+}
+
+.plan-infos{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2em;
+
+}
+
+.plan-generate-icon{
+    margin-left: auto;
+
+}
+
+.dots-icon{
+    margin-left: .7em;
+
+}
+
+
+.plan-generate-icon , .dots-icon{
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    padding: .4em .4em;
+}
+
+.plan-calories{
+    margin-left: 5em;
+    color: #61676b;
+    font-weight: 380;
+}
+
+.plan-title{
+    font-weight: 480;
+}
+
+
+.meal{
+    background-color: #f2f8fc;
+    padding: .3em .9em;
+    margin-bottom: 1em;
+    border-radius: 5px;
+}
+
+.meal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.dark-hover:hover{
+    background-color: #e8eef2;
+}
+
+.meal-title{
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+
+.meal-calories{
+    color: #61676b;
+    font-weight: 380;
+}
+
+.meal-recipe-img{
+    width: 5.3em;
+    height: 4em;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
+}
+
+.meal-calories{
+    margin-bottom: .7em;
+}
+
+.meal-recipe{
+    display: flex;
+    gap: .5em;
+    cursor: pointer;
+    padding-top: .65em;
+    transition: background-color .3s;
+}
+
+.meal-recipe:hover{
+    background-color: #e8eef2;
+
+
+}
+
+.meal-recipe-title{
+    color: #006db9;
+    font-weight: 600;
+    font-size: 1.07rem;
+
+
+}
+
+.serving{
+    font-weight: 380;
+    font-size: .9rem;
+}
 
 
 
