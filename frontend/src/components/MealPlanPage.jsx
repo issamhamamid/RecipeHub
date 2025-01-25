@@ -3,7 +3,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import {Meal} from "./Meal.jsx";
 import {PieChart} from "react-minimal-pie-chart";
 
-export const MealPlanPage = ({mealPlan}) => {
+export const MealPlanPage = ({mealPlan , desired}) => {
     return (
         <div className='meal-plan-page'>
             <div className='meals'>
@@ -30,14 +30,14 @@ export const MealPlanPage = ({mealPlan}) => {
                 <div className='planner-pie-chart'>
                     <PieChart
                         data={[
-                            {title: 'Fat', value: 10, color: '#11bdcd'},
-                            {title: 'Protein', value: 10, color: '#a375ff'},
-                            {title: 'Carbs', value: 10, color: '#f1b604'},
+                            {title: 'Fat', value: mealPlan.total_fat, color: '#11bdcd'},
+                            {title: 'Protein', value: mealPlan.total_protein, color: '#a375ff'},
+                            {title: 'Carbs', value: mealPlan.total_carbs, color: '#f1b604'},
                         ]}
                         animate={true}
                         label={({dataEntry}) => {
 
-                            return dataEntry.percentage > 30 ? (`${dataEntry.title}: ${dataEntry.percentage.toFixed(1)}%`) : null
+                            return dataEntry.percentage > 20 ? (`${dataEntry.title}: ${dataEntry.percentage.toFixed(1)}%`) : null
 
 
                         }}
@@ -67,15 +67,15 @@ export const MealPlanPage = ({mealPlan}) => {
                         </div>
                         <div className='info-row'>
                             <p className='nut-info'><span className="dot purple"></span> Protein</p>
-                            <p>{mealPlan.total_protein}</p>
+                            <p>{mealPlan.total_protein}g</p>
                         </div>
                         <div className='info-row'>
                             <p className='nut-info'><span className="dot yellow"></span> Carbs</p>
-                            <p> 10g</p>
+                            <p>{mealPlan.total_carbs}g</p>
                         </div>
                         <div className='info-row'>
                             <p className='nut-info'><span className="dot blue"></span> Fats</p>
-                            <p>10g</p>
+                            <p>{mealPlan.total_fat}g</p>
                         </div>
 
                     </div>
@@ -83,8 +83,8 @@ export const MealPlanPage = ({mealPlan}) => {
 
                     <div className='desired'>
 
-                        <p>2064</p>
-                        <p>200g</p>
+                        <p>{desired.calories}g</p>
+                        <p className='protein-des'>{desired.protein}g</p>
                     </div>
 
                 </div>

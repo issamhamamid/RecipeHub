@@ -27,6 +27,7 @@ export const MealPlanner = () => {
 
         fields.forEach((field)=>{
             jsonObj[field] = formData.get(field)
+            data[field] = formData.get(field)
         })
 
         try{
@@ -61,7 +62,7 @@ export const MealPlanner = () => {
             </header>
             <div className='discover'>
 
-                { mealPlan &&  !isPending ? <MealPlanPage mealPlan={mealPlan}/> : <div className='meal-planner-main'>
+                { mealPlan &&  !isPending ? <MealPlanPage mealPlan={mealPlan} desired = {data}/> : <div className='meal-planner-main'>
 
                     <img className='meal-planner-img'
                          src='https://www.eatthismuch.com/app/_app/immutable/assets/orange-painting.BDLMeH1h.png'

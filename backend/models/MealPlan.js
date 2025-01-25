@@ -17,6 +17,20 @@ const MealPlan = sequelize.define('MealPlan', {
     date: {
         type: DataTypes.DATEONLY,
         allowNull: true,
+        defaultValue: DataTypes.NOW, // This sets the default value to the current date
+    },
+
+    total_protein : {
+        type : DataTypes.INTEGER ,
+        allowNull: false
+    },
+    total_carbs: {
+        type : DataTypes.INTEGER ,
+        allowNull: false
+    },
+    total_calories: {
+        type : DataTypes.INTEGER ,
+        allowNull: false
     },
     user_id: {
         type: DataTypes.INTEGER,

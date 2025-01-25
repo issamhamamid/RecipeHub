@@ -7,6 +7,7 @@ const {asyncHandler} = require("../Util/asyncHandler");
 const customError = require("../Error/customError");
 const {syncHandler} = require("../Util/syncHandler");
 const axios = require('axios');
+const getTodaysMealPlan = require("../Util/getMealPlaRecipes");
 
 
 
@@ -62,10 +63,15 @@ module.exports.userProfile =  (req , res) =>{
 
 
 module.exports.saveMealPlan = asyncHandler(async (req , res , next)=>{
+
  const mealplan = await MealPlan.create({
   name : req.body.name ,
-  user_id : req.user.id
+  user_id : req.user.id,
+  total_calories : req.body.total_calories,
+  total_protein : req.body.total_protein,
+  total_carbs: req.body.total_carbs,
  })
+
  for (const recipeId of req.body.breakfast) {
    await MealPlanRecipe.create({
     meal_type : "Breakfast" ,
@@ -87,6 +93,14 @@ module.exports.saveMealPlan = asyncHandler(async (req , res , next)=>{
     MealPlanId : mealplan.id
    })
  }
+
+ for (const recipeId of req.body.snack) {
+  await MealPlanRecipe.create({
+   meal_type : "Snack" ,
+   RecipeId : recipeId ,
+   MealPlanId : mealplan.id
+  })
+ }
  responseHandler(req , res , 201 , "")
 
 })
@@ -94,28 +108,26 @@ module.exports.saveMealPlan = asyncHandler(async (req , res , next)=>{
 
 module.exports.showMealPlans = asyncHandler(async (req, res, next) => {
  const mealPlans = await req.user.getMealPlans();  // Get meal plans associated with the user
- const data = {};
-
- // Use Promise.all to fetch all recipes concurrently
- const recipePromises = mealPlans.map(async (mealPlan) => {
-  const recipes = await mealPlan.getMealPlanRecipes({
-   through: {
-    model: MealPlanRecipe, // Specify the junction model (MealPlanRecipe)
-    attributes: []         // Do not include any attributes from the junction table
-   }
-  });
-
-  // Add the recipes to the data object under the meal plan's name
-  data[mealPlan.name] = recipes;
- });
-
- // Wait for all promises to resolve
- await Promise.all(recipePromises);
+ const data = await getTodaysMealPlan(mealPlans)
 
  // Send the response with the data
  return responseHandler(req, res, 200, data);
 });
 
+
+module.exports.getTodaysMealPlan = asyncHandler(async (req , res , next)=>{
+ const today = new Date().toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
+
+ const mealPlan = await req.user.getMealPlans({
+  where: {
+   date: today, // Filter by today's date
+  },
+ });
+
+ const data = await getTodaysMealPlan(mealPlan)
+ return responseHandler(req, res, 200, data);
+
+})
 
 module.exports.removeMealPlan = asyncHandler(async (req , res ,next)=>{
  const mealplan = await MealPlan.findOne({
