@@ -1,6 +1,6 @@
 import {BsThreeDotsVertical} from "react-icons/bs";
 
-export const Meal = () => {
+export const Meal = ({meal}) => {
     return (
         <div className='meal'>
             <div className='meal-header'>
@@ -11,37 +11,27 @@ export const Meal = () => {
                 </div>
 
             </div>
-            <p className='meal-calories'>2069 calories</p>
-            <div className='meal-recipe'>
-                <img className='meal-recipe-img'
-                     src='https://images.eatthismuch.com/img/3262870_elm333_6cbadbd4-4043-4712-9140-21059fea363c.jpg'
-                     alt='rcipe-img'
-                />
-                <div className='meal-info'>
-                    <a className='meal-recipe-title'>
-                        Ham and Egg Scramble
-                    </a>
-                    <p className='serving'>1 serving</p>
+            <p className='meal-calories'>{meal.total_calories} Calories</p>
+            {meal.recipes.map((recipe)=>{
+                return (
+                    <div key={recipe.id} className='meal-recipe'>
+                        <img className='meal-recipe-img'
+                             src={recipe.image_url}
+                             alt='rcipe-img'
+                        />
+                        <div className='meal-info'>
+                            <a className='meal-recipe-title'>
+                                {recipe.name}
+                            </a>
+                            <p className='serving'>1 serving</p>
 
-                </div>
-
-
-            </div>
-            <div className='meal-recipe'>
-                <img className='meal-recipe-img'
-                     src='https://images.eatthismuch.com/img/906440_elm333_4a08d66b-b82b-43d7-944d-0bd176e53b01.jpg'
-                     alt='rcipe-img'
-                />
-                <div className='meal-info'>
-                    <a className='meal-recipe-title'>
-                        Ham and Egg Scramble
-                    </a>
-                    <p className='serving'>1 serving</p>
-
-                </div>
+                        </div>
 
 
-            </div>
+                    </div>
+                )
+            })}
+
         </div>
     )
 }

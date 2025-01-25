@@ -2,14 +2,56 @@
 import {useScroll} from "../customHooks/useScroll.js";
 import { BsArrowRepeat } from "react-icons/bs";
 import {MealPlanPage} from "./MealPlanPage.jsx";
-import {useState} from "react";
+import {useActionState, useRef, useState} from "react";
+import {ModalTitle} from "./ModalTitle.jsx";
+
+import {Modal} from "./Modal.jsx";
+import axios from "axios";
+import {useUser} from "../customHooks/useUser.js";
+
 
 
 export const MealPlanner = () => {
 
-    const [temp, setTemp] = useState(false);
-
+    const dialogRef = useRef(null);
+    const {jwt} = useUser()
     const isScrolled = useScroll(3)
+    const link = 'http://localhost:3000/users/generate_meal_plan';
+    const fields = ['calories' , 'protein' , 'mealCount']
+    const [mealPlan, setMealPlan] = useState(null);
+
+
+    const submit = async (prev , formData)=>{
+        const jsonObj = {}
+        const data = {}
+
+        fields.forEach((field)=>{
+            jsonObj[field] = formData.get(field)
+        })
+
+        try{
+
+            const response = await axios.post(link , jsonObj , {
+                headers: {
+                    'Authorization': `Bearer ${jwt}`,
+                    'Content-Type': 'application/json'
+                }
+            } )
+            if(response.status===201 || response.status ===200){
+                    setMealPlan(response.data.data)
+            }
+
+        }
+        catch (err){
+            data.error = err.response?.data?.message
+        }
+
+        dialogRef.current.close()
+        return data
+    }
+    const [data , submitAction , isPending] = useActionState(submit, null);
+
+
     return (
         <>
             <header className={isScrolled ? 'discover-header-scroll' : 'discover-header'}>
@@ -19,26 +61,68 @@ export const MealPlanner = () => {
             </header>
             <div className='discover'>
 
-                {temp ?  <MealPlanPage/> : <div className='meal-planner-main'>
+                { mealPlan &&  !isPending ? <MealPlanPage mealPlan={mealPlan}/> : <div className='meal-planner-main'>
 
                     <img className='meal-planner-img'
                          src='https://www.eatthismuch.com/app/_app/immutable/assets/orange-painting.BDLMeH1h.png'
                          alt='orange'/>
-                    <h2 className='meal-planner-slogan'>What are we eating today?</h2>
+                    <h2 className='meal-planner-slogan'>What&#39;s on the menu today?</h2>
                     <div className='meal-planner-btn'>
                         <button onClick={() => {
-                            setTemp(!temp)
+                            dialogRef.current.showModal()
                         }} className='generate-btn'><BsArrowRepeat className='generate-icon'/> Generate
                         </button>
                         <button className='manually filter'>Plan Manually</button>
                     </div>
+
 
                 </div>}
 
 
             </div>
 
+            <Modal dialogRef={dialogRef} confirmationText='Confirm' showButtons={false} className='modal with-keyframes'>
+                <ModalTitle>Set you nutrition preferences</ModalTitle>
+                <div className='preferances'>
 
+                    <form action={submitAction} className='meal-planner-form'>
+                        <div className='calor-pref'>
+                            <div className='div-align'><label htmlFor="calories" className='i-want'> I want to
+                                eat</label></div>
+                            <input id="calories" name="calories" type='number' className='calories-input'
+                                   required={true}></input>
+                            <div className='div-grow'><p className='calories-inline'>calories</p></div>
+                        </div>
+
+                        <div className='calor-pref'>
+                            <div className='div-align'><label htmlFor="protein" className='i-want'> And</label></div>
+                            <input id="protein" name="protein" type='number' className='calories-input'
+                                   required={true}></input>
+                            <div className='div-grow'><p className='calories-inline'>protein</p></div>
+                        </div>
+
+                        <div className='calor-pref'>
+                            <div className='div-align'><label htmlFor="mealCount" className='i-want'> In</label></div>
+                            <select id="mealCount" name="mealCount" className="meals-drop-down" required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <div className='div-grow'><p className='calories-inline'>meals</p></div>
+                        </div>
+                        <div className='modal-buttons meal-form-btns'>
+                            <button type="button" className='modal-btn default' onClick={() => dialogRef.current?.close()}>Cancel
+                            </button>
+                            <button type='submit' className='modal-btn confirm'>Generate</button>
+
+                        </div>
+                    </form>
+
+
+                </div>
+            </Modal>
         </>
     )
 }

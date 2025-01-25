@@ -1141,6 +1141,7 @@ input:hover{
     display: flex;
     flex-direction: column;
     gap: .5em;
+    margin-top: 1em;
 }
 
 
@@ -1355,6 +1356,76 @@ input:hover{
 
 
 
+}
+
+
+.preferances{
+    width: 300px;
+    margin-top: 1em;
+    border-radius: 5px;
+    padding: 1em 0;
+
+}
+
+.meal-planner-form{
+    gap: .5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.calor-pref{
+    display: flex;
+    width: 70%;
+    align-items: center;
+    justify-content: space-between;
+
+
+}
+
+.div-align{
+    font-weight: 500;
+    width: 90px;
+    text-align: right;
+
+
+}
+
+
+
+.calories-input , .meals-drop-down{
+    width: 25%;
+    text-align: right;
+
+}
+
+.meals-drop-down{
+    padding: .8em 0;
+    border-color: #cbd8e1;
+    border-radius: 5px;
+}
+
+.div-grow{
+    width: 25%;
+}
+
+
+
+
+
+.calories-input::-webkit-outer-spin-button,
+.calories-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+
+.meal-form-btns{
+    align-self: flex-end;
+    margin-top: 2em;
+    margin-bottom: 0;
 }
 
 

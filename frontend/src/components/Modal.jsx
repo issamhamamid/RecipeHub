@@ -11,7 +11,7 @@ export const Modal = ({children , dialogRef ,confirmationText, onConfirm , showB
                     <button className='modal-btn default' onClick={() => dialogRef.current?.close()}>Cancel</button>
                     <button className='modal-btn confirm' onClick={onConfirm}>{confirmationText}</button>
                 </div>}
-                <button className='invisible' ></button> {/*TO PREVENT DIALOG DEFAULT BORDER BEHAVIOUR */}
+                <button  className='invisible' ></button> {/*TO PREVENT DIALOG DEFAULT BORDER BEHAVIOUR */}
             </div>
 
         </dialog>

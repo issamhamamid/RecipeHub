@@ -3,7 +3,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import {Meal} from "./Meal.jsx";
 import {PieChart} from "react-minimal-pie-chart";
 
-export const MealPlanPage = () => {
+export const MealPlanPage = ({mealPlan}) => {
     return (
         <div className='meal-plan-page'>
             <div className='meals'>
@@ -20,9 +20,10 @@ export const MealPlanPage = () => {
                 </div>
 
             </div>
-            <Meal/>
-            <Meal/>
-            <Meal/>
+                {mealPlan.meals.map((meal)=>{
+                        return <Meal key = {meal.total_calories}  meal={meal} />
+                })}
+
             </div>
             <div className='nutrition'>
                 <h2 className='plan-title'>Nutrition</h2>
@@ -62,11 +63,11 @@ export const MealPlanPage = () => {
 
                         <div className='info-row'>
                             <p className='nut-info'>Calories</p>
-                            <p>1000</p>
+                            <p>{mealPlan.total_calories}</p>
                         </div>
                         <div className='info-row'>
                             <p className='nut-info'><span className="dot purple"></span> Protein</p>
-                            <p>10g</p>
+                            <p>{mealPlan.total_protein}</p>
                         </div>
                         <div className='info-row'>
                             <p className='nut-info'><span className="dot yellow"></span> Carbs</p>

@@ -127,8 +127,14 @@ module.exports.removeMealPlan = asyncHandler(async (req , res ,next)=>{
 
 
 module.exports.generateMealPlan = asyncHandler(async (req , res ,next)=>{
- const response = await axios.post('http://localhost:5000', req.body);
+ try{
+  const response = await axios.post('http://localhost:5000', req.body);
+  responseHandler(req , res , 200 , response.data)
+ }
+ catch (err){
+  responseHandler(req , res , 400 ,err.response.data)
+ }
 
- responseHandler(req , res , 200 , response.data)
+
 })
 
