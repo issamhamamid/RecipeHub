@@ -8,6 +8,7 @@ import {ModalTitle} from "./ModalTitle.jsx";
 import {Modal} from "./Modal.jsx";
 import axios from "axios";
 import {useUser} from "../customHooks/useUser.js";
+import generate from "../Util/generate.js";
 
 
 
@@ -33,73 +34,14 @@ export const MealPlanner = () => {
 
     }, [update]);
 
-
-
     const submit = async (prev , formData)=>{
-        let recipe_ids = [];
-        const jsonObj = {}
-        const data = {}
-
-        fields.forEach((field)=>{
-            jsonObj[field] = formData.get(field)
-            data[field] = formData.get(field)
-        })
-
-
-
-        try{
-
-            const response = await axios.post(link , jsonObj , {
-                headers: {
-                    'Authorization': `Bearer ${jwt}`,
-                    'Content-Type': 'application/json'
-                }
-            } )
-            if(response.status===201 || response.status ===200){
-                response.data.data.meals.forEach(item => {
-                    item.recipes.forEach(recipe => {
-                        recipe_ids.push(recipe.id);
-                    });
-                });
-            }
-
-
-
-            const mealObj = {
-                "name" : "meal",
-                "total_protein" : response.data.data.total_protein,
-                "total_calories" : response.data.data.total_calories,
-                "total_carbs" : response.data.data.total_carbs,
-                "total_fat" : response.data.data.total_fat,
-                "recipes" : recipe_ids,
-                "desired_protein" : data.protein ,
-                "desired_calories" :data.calories
-
-            }
-
-             await axios.post('http://localhost:3000/users/mealplan' , mealObj , {
-                headers: {
-                    'Authorization': `Bearer ${jwt}`,
-                    'Content-Type': 'application/json'
-                }
-            } )
-
-            setUpdate(!update)
-
-
-
-
-        }
-        catch (err){
-
-
-            data.error = err.response?.data?.message
-        }
-
-        dialogRef.current.close()
-        return data
+        await  generate(prev , formData , jwt , link , fields , setUpdate , update , dialogRef , mealPlan)
     }
+
+
     const [data , submitAction , isPending] = useActionState(submit, null);
+
+
 
 
     return (
@@ -111,7 +53,7 @@ export const MealPlanner = () => {
             </header>
             <div className='discover'>
 
-                { mealPlan.mealplans.length > 0 &&  !isPending ? <MealPlanPage mealPlan={mealPlan.mealplans[0]} /> : <div className='meal-planner-main'>
+                { mealPlan.mealplans.length > 0 &&  !isPending ? <MealPlanPage mealPlan={mealPlan.mealplans[0]} ref = {dialogRef}  update={update} setUpdate={setUpdate} /> : <div className='meal-planner-main'>
 
                     <img className='meal-planner-img'
                          src='https://www.eatthismuch.com/app/_app/immutable/assets/orange-painting.BDLMeH1h.png'

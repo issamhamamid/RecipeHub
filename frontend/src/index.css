@@ -1135,6 +1135,7 @@ input:hover{
 
 .generate-icon{
     font-size: 1.35rem;
+    font-weight: 300;
 }
 
 .meal-planner-btn{
@@ -1168,20 +1169,46 @@ input:hover{
 
 .plan-generate-icon{
     margin-left: auto;
+    position: relative;
 
 }
 
-.dots-icon{
-    margin-left: .7em;
+.tool-tip::after , .tool-tip::before{
+    --scale : 0;
+    position: absolute;
+    content: attr(data-tooltip);
+    top: 1.8rem;
+    left: 70%;
+    height: 20px;
+    width: max-content;
+    background-color: white;
+    border: 1px solid black;
+    font-size: .9rem;
+    font-weight: 380;
+    padding: .1em .3em;
+    transform: scale(var(--scale));
 
 }
+
+.tool-tip:hover::before{
+    --scale: 1;
+}
+
+
 
 
 .plan-generate-icon , .dots-icon{
-    font-size: 1.2rem;
+    font-size: 1.45rem;
     cursor: pointer;
     border: none;
     padding: .4em .4em;
+}
+
+.dots-icon{
+
+    margin-left: .7em;
+    position: relative;
+
 }
 
 .plan-calories{

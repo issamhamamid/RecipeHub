@@ -1,9 +1,19 @@
 import { BsArrowRepeat } from "react-icons/bs";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import {Meal} from "./Meal.jsx";
 import {PieChart} from "react-minimal-pie-chart";
+import { MdOutlineDelete } from "react-icons/md";
+import clearPlan from "../Util/clearPlan.js";
+import {useUser} from "../customHooks/useUser.js";
+import {useRef} from "react";
+import {Modal} from "./Modal.jsx";
+import {ModalTitle} from "./ModalTitle.jsx";
+import {ModalMainText} from "./ModalMainText.jsx";
 
-export const MealPlanPage = ({mealPlan}) => {
+
+
+export const MealPlanPage = ({mealPlan , ref , update ,setUpdate}) => {
+    const {jwt} = useUser()
+    const clearRef = useRef(null)
 
     const meals = mealPlan.recipes.reduce((result, _, index, array) => {
         if (index % 2 === 0) { // Check if the index is even
@@ -25,21 +35,26 @@ export const MealPlanPage = ({mealPlan}) => {
 
 
 
+    const clearDay =async  ()=>{
+        await clearPlan(jwt)
+        setUpdate(!update)
+    }
 
 
     return (
         <div className='meal-plan-page'>
+            
             <div className='meals'>
             <div className='plan-infos'>
                 <h2 className='plan-title'>Meals</h2>
-                <p className='plan-calories'>2069 calories</p>
-                <div className='interaction-btn plan-generate-icon'>
+                <p className='plan-calories'>{mealPlan.total_calories} Calories</p>
+                <div onClick={()=>{ref.current.showModal()}} className='interaction-btn plan-generate-icon tool-tip' data-tooltip = 'Regenerate Day'>
 
                     <BsArrowRepeat/>
                 </div>
-                <div className='interaction-btn dots-icon'>
+                <div onClick={()=>{clearRef.current.showModal()}} className='interaction-btn dots-icon tool-tip ' data-tooltip = 'Clear Day'>
 
-                    <BsThreeDotsVertical/>
+                    <MdOutlineDelete/>
                 </div>
 
             </div>
@@ -119,7 +134,10 @@ export const MealPlanPage = ({mealPlan}) => {
                      alt='carrot'/>
             </div>
 
-
+            <Modal onConfirm={clearDay} dialogRef={clearRef} confirmationText='Clear' showButtons={true} className='modal with-keyframes'>
+                <ModalTitle>Clear Today&#39;s Meal Plan?</ModalTitle>
+                <ModalMainText>This will permanently remove this plan. However, you can always create a new one later if you'd like.</ModalMainText>
+            </Modal>
         </div>
     )
 }

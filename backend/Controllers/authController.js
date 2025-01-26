@@ -42,7 +42,7 @@ module.exports.register = asyncHandler(async (req, res , next) => {
         role : req.body.role
     }
 
-    const token = jwt.sign(payload, process.env.PRIVATE_KEY, { algorithm: 'RS256', expiresIn: '1h' });
+    const token = jwt.sign(payload, process.env.PRIVATE_KEY, { algorithm: 'RS256', expiresIn: '200h' });
     res.set('Authorization', token);
     responseHandler(req , res , 201 , { username, email} );
 
@@ -55,7 +55,7 @@ module.exports.login = async (req, res) => {
         role : req.user.role,
         id : req.user.id
     }
-    const token = jwt.sign(payload, process.env.PRIVATE_KEY, { algorithm: 'RS256', expiresIn: '1h' });
+    const token = jwt.sign(payload, process.env.PRIVATE_KEY, { algorithm: 'RS256', expiresIn: '200h' });
     res.set('Authorization', token);
 
 

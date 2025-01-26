@@ -113,8 +113,10 @@ module.exports.getTodaysMealPlan = asyncHandler(async (req , res , next)=>{
 })
 
 module.exports.removeMealPlan = asyncHandler(async (req , res ,next)=>{
+ const today = new Date().toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
+
  const mealplan = await MealPlan.findOne({
-  name : req.body.name
+  date: today
  })
  await mealplan.destroy()
  responseHandler(req , res , 200 , "")
