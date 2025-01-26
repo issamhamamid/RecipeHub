@@ -3,7 +3,30 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import {Meal} from "./Meal.jsx";
 import {PieChart} from "react-minimal-pie-chart";
 
-export const MealPlanPage = ({mealPlan , desired}) => {
+export const MealPlanPage = ({mealPlan}) => {
+
+    const meals = mealPlan.recipes.reduce((result, _, index, array) => {
+        if (index % 2 === 0) { // Check if the index is even
+            const pair = array.slice(index, index + 2); // Get the pair of recipes
+            const total_calories = pair.reduce((sum, recipe) => sum + recipe.calories, 0); // Calculate total calories
+            const total_fat = pair.reduce((sum, recipe) => sum + recipe.fat, 0); // Calculate total fat
+            const total_carbs = pair.reduce((sum, recipe) => sum + recipe.carbs, 0); // Calculate total carbs
+
+
+            result.push({
+                recipes: pair,
+                total_calories,
+                total_fat,
+                total_carbs
+            }); // Push the pair and the totals into the result
+        }
+        return result;
+    }, []);
+
+
+
+
+
     return (
         <div className='meal-plan-page'>
             <div className='meals'>
@@ -20,7 +43,7 @@ export const MealPlanPage = ({mealPlan , desired}) => {
                 </div>
 
             </div>
-                {mealPlan.meals.map((meal)=>{
+                {meals.map((meal)=>{
                         return <Meal key = {meal.total_calories}  meal={meal} />
                 })}
 
@@ -30,14 +53,14 @@ export const MealPlanPage = ({mealPlan , desired}) => {
                 <div className='planner-pie-chart'>
                     <PieChart
                         data={[
-                            {title: 'Fat', value: mealPlan.total_fat, color: '#11bdcd'},
-                            {title: 'Protein', value: mealPlan.total_protein, color: '#a375ff'},
+                            {title: 'Protein', value:mealPlan.total_protein, color: '#a375ff'},
                             {title: 'Carbs', value: mealPlan.total_carbs, color: '#f1b604'},
+                            {title: 'Fat', value: mealPlan.total_fat, color: '#11bdcd'},
                         ]}
                         animate={true}
                         label={({dataEntry}) => {
 
-                            return dataEntry.percentage > 20 ? (`${dataEntry.title}: ${dataEntry.percentage.toFixed(1)}%`) : null
+                            return dataEntry.percentage > 28 ? (`${dataEntry.title}: ${dataEntry.percentage.toFixed(1)}%`) : null
 
 
                         }}
@@ -83,8 +106,8 @@ export const MealPlanPage = ({mealPlan , desired}) => {
 
                     <div className='desired'>
 
-                        <p>{desired.calories}g</p>
-                        <p className='protein-des'>{desired.protein}g</p>
+                        <p>{mealPlan.desired_calories}g</p>
+                        <p className='protein-des'>{mealPlan.desired_protein}g</p>
                     </div>
 
                 </div>

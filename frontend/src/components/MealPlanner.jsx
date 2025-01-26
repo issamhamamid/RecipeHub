@@ -2,7 +2,7 @@
 import {useScroll} from "../customHooks/useScroll.js";
 import { BsArrowRepeat } from "react-icons/bs";
 import {MealPlanPage} from "./MealPlanPage.jsx";
-import {useActionState, useRef, useState} from "react";
+import {useActionState, useEffect, useRef, useState} from "react";
 import {ModalTitle} from "./ModalTitle.jsx";
 
 import {Modal} from "./Modal.jsx";
@@ -18,10 +18,25 @@ export const MealPlanner = () => {
     const isScrolled = useScroll(3)
     const link = 'http://localhost:3000/users/generate_meal_plan';
     const fields = ['calories' , 'protein' , 'mealCount']
-    const [mealPlan, setMealPlan] = useState(null);
+    const [mealPlan, setMealPlan] = useState({'mealplans' : []});
+    const [update, setUpdate] = useState(false)
+
+
+    useEffect(() => {
+            axios.get('http://localhost:3000/users/mealplan/today' , {
+                headers: {
+                    'Authorization': `Bearer ${jwt}`,
+                    'Content-Type': 'application/json'
+                }
+            }).then(res=>setMealPlan(res.data.data))
+
+
+    }, [update]);
+
 
 
     const submit = async (prev , formData)=>{
+        let recipe_ids = [];
         const jsonObj = {}
         const data = {}
 
@@ -29,6 +44,8 @@ export const MealPlanner = () => {
             jsonObj[field] = formData.get(field)
             data[field] = formData.get(field)
         })
+
+
 
         try{
 
@@ -39,11 +56,43 @@ export const MealPlanner = () => {
                 }
             } )
             if(response.status===201 || response.status ===200){
-                    setMealPlan(response.data.data)
+                response.data.data.meals.forEach(item => {
+                    item.recipes.forEach(recipe => {
+                        recipe_ids.push(recipe.id);
+                    });
+                });
             }
+
+
+
+            const mealObj = {
+                "name" : "meal",
+                "total_protein" : response.data.data.total_protein,
+                "total_calories" : response.data.data.total_calories,
+                "total_carbs" : response.data.data.total_carbs,
+                "total_fat" : response.data.data.total_fat,
+                "recipes" : recipe_ids,
+                "desired_protein" : data.protein ,
+                "desired_calories" :data.calories
+
+            }
+
+             await axios.post('http://localhost:3000/users/mealplan' , mealObj , {
+                headers: {
+                    'Authorization': `Bearer ${jwt}`,
+                    'Content-Type': 'application/json'
+                }
+            } )
+
+            setUpdate(!update)
+
+
+
 
         }
         catch (err){
+
+
             data.error = err.response?.data?.message
         }
 
@@ -62,7 +111,7 @@ export const MealPlanner = () => {
             </header>
             <div className='discover'>
 
-                { mealPlan &&  !isPending ? <MealPlanPage mealPlan={mealPlan} desired = {data}/> : <div className='meal-planner-main'>
+                { mealPlan.mealplans.length > 0 &&  !isPending ? <MealPlanPage mealPlan={mealPlan.mealplans[0]} /> : <div className='meal-planner-main'>
 
                     <img className='meal-planner-img'
                          src='https://www.eatthismuch.com/app/_app/immutable/assets/orange-painting.BDLMeH1h.png'

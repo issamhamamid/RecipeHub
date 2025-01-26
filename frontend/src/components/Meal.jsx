@@ -1,4 +1,5 @@
 import {BsThreeDotsVertical} from "react-icons/bs";
+import {Link} from "react-router-dom";
 
 export const Meal = ({meal}) => {
     return (
@@ -14,21 +15,23 @@ export const Meal = ({meal}) => {
             <p className='meal-calories'>{meal.total_calories} Calories</p>
             {meal.recipes.map((recipe)=>{
                 return (
-                    <div key={recipe.id} className='meal-recipe'>
-                        <img className='meal-recipe-img'
-                             src={recipe.image_url}
-                             alt='rcipe-img'
-                        />
-                        <div className='meal-info'>
-                            <a className='meal-recipe-title'>
-                                {recipe.name}
-                            </a>
-                            <p className='serving'>1 serving</p>
+                    <Link className='meal-recipe-link' key={recipe.id} to={`recipes/${recipe.id}`}>
+                        <div  className='meal-recipe'>
+                            <img className='meal-recipe-img'
+                                 src={recipe.image_url}
+                                 alt='rcipe-img'
+                            />
+                            <div className='meal-info'>
+                                <a className='meal-recipe-title'>
+                                    {recipe.name}
+                                </a>
+                                <p className='serving'>1 serving</p>
+
+                            </div>
+
 
                         </div>
-
-
-                    </div>
+                    </Link>
                 )
             })}
 

@@ -70,37 +70,20 @@ module.exports.saveMealPlan = asyncHandler(async (req , res , next)=>{
   total_calories : req.body.total_calories,
   total_protein : req.body.total_protein,
   total_carbs: req.body.total_carbs,
+  total_fat: req.body.total_fat,
+  desired_calories : req.body.desired_calories,
+  desired_protein : req.body.desired_protein,
+
  })
 
- for (const recipeId of req.body.breakfast) {
+ for (const recipeId of req.body.recipes) {
    await MealPlanRecipe.create({
     meal_type : "Breakfast" ,
     RecipeId : recipeId ,
     MealPlanId : mealplan.id
    })
  }
- for (const recipeId of req.body.lunch) {
-   await MealPlanRecipe.create({
-    meal_type : "Lunch" ,
-    RecipeId : recipeId ,
-    MealPlanId : mealplan.id
-   })
- }
- for (const recipeId of req.body.dinner) {
-   await MealPlanRecipe.create({
-    meal_type : "Dinner" ,
-    RecipeId : recipeId ,
-    MealPlanId : mealplan.id
-   })
- }
 
- for (const recipeId of req.body.snack) {
-  await MealPlanRecipe.create({
-   meal_type : "Snack" ,
-   RecipeId : recipeId ,
-   MealPlanId : mealplan.id
-  })
- }
  responseHandler(req , res , 201 , "")
 
 })

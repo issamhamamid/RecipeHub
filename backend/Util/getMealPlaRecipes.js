@@ -17,7 +17,8 @@ const getTodaysMealPlan = async (mealPlans) =>{
                         model: MealPlanRecipe, // Specify the junction model (MealPlanRecipe)
                         attributes: []         // Do not include any attributes from the junction table
                     }
-                }) , date : mealPlan.date , total_protein : mealPlan.total_protein , total_calories : mealPlan.total_calories , total_carbs : mealPlan.total_carbs})
+                }) , total_fat : mealPlan.total_fat,  date : mealPlan.date , total_protein : mealPlan.total_protein , total_calories : mealPlan.total_calories , total_carbs : mealPlan.total_carbs , desired_calories : mealPlan.desired_calories
+            , desired_protein : mealPlan.desired_protein })
 
 
     });

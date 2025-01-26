@@ -11,8 +11,8 @@ const MealPlan = sequelize.define('MealPlan', {
     },
     name: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique : true
+        allowNull: true,
+
     },
     date: {
         type: DataTypes.DATEONLY,
@@ -31,6 +31,15 @@ const MealPlan = sequelize.define('MealPlan', {
     total_calories: {
         type : DataTypes.INTEGER ,
         allowNull: false
+    },
+    total_fat: {
+        type : DataTypes.INTEGER ,
+    },
+    desired_protein : {
+        type : DataTypes.INTEGER ,
+    },
+    desired_calories: {
+        type : DataTypes.INTEGER ,
     },
     user_id: {
         type: DataTypes.INTEGER,

@@ -1262,6 +1262,7 @@ input:hover{
 .serving{
     font-weight: 380;
     font-size: .9rem;
+    color:#303a41 ;
 }
 
 
@@ -1431,6 +1432,20 @@ input:hover{
 
 .protein-des{
     margin-top: .2em;
+}
+
+
+.meal-recipe-link{
+
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    color: #006db9;
+}
+
+
+.meal-recipe-link:hover , .meal-recipe-link:focus{
+    text-decoration: none;
 }
 
 
