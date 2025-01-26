@@ -7,7 +7,7 @@ export const RecipeRow = ({id ,name , image_url , calories , carbs , fat , prote
 
     return (
         <div className='recipe'>
-            <Link className='recipe-link' to={`${id}`} state={{from : params.toString()}}>
+            <Link className='recipe-link' to={`${id}`} state={{params : params.toString() , from : 'app/recipes'}}>
                 <div className='recipe-main'>
                     <img className='recipe-thumbnail'
                          src={image_url}

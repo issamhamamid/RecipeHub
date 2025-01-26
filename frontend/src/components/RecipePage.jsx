@@ -125,8 +125,8 @@ export const RecipePage = () => {
         <>
         <header className={isScrolled ? 'discover-header-scroll' : 'discover-header'}>
             <div className='discover-header-content'>
-                <Link className={location.state?.from || location.state?.from === ''  ?  'back-link' : 'back-link invisible '} to={ location.state?.from === ''
-                     ? 'http://localhost:5173/app/recipes' :  `http://localhost:5173/app/recipes?${location.state?.from}` } >
+                <Link className={location.state?.from  ?  'back-link' : 'back-link invisible '} to={ location.state?.params === ''
+                     ? `http://localhost:5173/${location.state?.from}` :  `http://localhost:5173/${location.state?.from}?${location.state?.params}` } >
 
                     <IoArrowBackOutline className='back-icon'/>
                 </Link>

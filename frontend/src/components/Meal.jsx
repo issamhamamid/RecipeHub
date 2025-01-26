@@ -15,7 +15,7 @@ export const Meal = ({meal}) => {
             <p className='meal-calories'>{meal.total_calories} Calories</p>
             {meal.recipes.map((recipe)=>{
                 return (
-                    <Link className='meal-recipe-link' key={recipe.id} to={`recipes/${recipe.id}`}>
+                    <Link className='meal-recipe-link' state={{from : 'app'}} key={recipe.id} to={`recipes/${recipe.id}`}>
                         <div  className='meal-recipe'>
                             <img className='meal-recipe-img'
                                  src={recipe.image_url}
