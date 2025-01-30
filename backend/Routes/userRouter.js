@@ -13,7 +13,14 @@ userRouter.route('/profile')
     .get( passport.authenticate('jwt', { session: false }) , userController.userProfile )
     .patch(passport.authenticate('jwt', { session: false }) , userController.updateUser)
 
+userRouter.route('/profile')
+    .get(passport.authenticate('jwt', { session: false }) , userController.userProfile)
 
+userRouter.route('/profile/email')
+    .put(passport.authenticate('jwt', { session: false }) , userController.changeEmail)
+
+userRouter.route('/profile/password')
+    .put(passport.authenticate('jwt', { session: false }) , userController.changePassword)
 
 userRouter.route('/mealplan')
     .post(passport.authenticate('jwt', { session: false }) , userController.saveMealPlan)

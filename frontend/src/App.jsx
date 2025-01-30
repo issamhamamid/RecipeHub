@@ -11,6 +11,7 @@ import {Discover} from "./components/Discover.jsx";
 import {RecipePage} from "./components/RecipePage.jsx";
 import {DayJs} from "./components/DayJs.jsx";
 import {MealPlanner} from "./components/MealPlanner.jsx";
+import {Account} from "./components/Account.jsx";
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
                             <Route index element={<MealPlanner/>}/>
                             <Route path='recipes' element={<Discover/>}/>
                             <Route path='favorites' element={<DayJs/>}/>
-                            <Route path='settings' element={<div>fgf</div>}/>
+                            <Route path='settings' element={<Account/>}/>
                             <Route path='recipes/:id' element={<RecipePage/>}/>
 
                         </Route>

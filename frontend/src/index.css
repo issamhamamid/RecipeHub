@@ -1396,6 +1396,7 @@ input:hover{
 
 }
 
+
 .meal-planner-form{
     gap: .5em;
     display: flex;
@@ -1476,17 +1477,52 @@ input:hover{
 }
 
 
+/*ACCOUNT SETTINGS PAGE*/
 
 
 
+.settings-main{
+    margin-top: 7.81em;
+}
 
 
+.email-ad,.user-email , .change-link, .password-text {
+    display: inline-block;
+    margin-right: 2em;
+}
 
+.password-text{
+    margin-right: 4em;
+    margin-top: 1em;
+}
 
+.change-link{
+    color: #0053ac;
+    font-weight: 400;
+}
 
+.email-ad , .password-text{
+    font-weight: 600;
+    font-size: 1.07rem;
+}
 
+.settings-modal{
+    width: 400px;
+    margin-top: 1em;
+    border-radius: 5px;
+    padding: 1em 0;
+}
 
+.settings-flex{
+    display: flex;
+    width: 95%;
 
+    justify-content: space-between;
+}
+
+.change-mail-input{
+    width: 59%;
+}
 
 
 

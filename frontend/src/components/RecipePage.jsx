@@ -141,16 +141,11 @@ export const RecipePage = () => {
                      src={recipe.image_url}
                      alt='recipe image'/>
                 <div className='recipe-interactions'>
-                    <div className='interaction-btn'>
 
-                        <IoMdAdd/>
-                    </div>
                     <div className='interaction-btn'>
                         <FaRegStar/>
                     </div>
-                    <div className='interaction-btn'>
-                        <AiOutlineLike/>
-                    </div>
+
                     <div onClick={() => dialogRef.current?.showModal()} className='interaction-btn'>
                         <FaRegCommentDots/>
                     </div>

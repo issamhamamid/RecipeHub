@@ -135,3 +135,24 @@ module.exports.generateMealPlan = asyncHandler(async (req , res ,next)=>{
 
 })
 
+module.exports.changeEmail = asyncHandler(async (req , res , next)=>{
+ const user = req.user
+ user.email = req.body.email;
+ await user.save()
+ responseHandler(req , res , 201 ,'updated')
+})
+
+
+module.exports.changePassword= asyncHandler(async (req , res , next)=>{
+ const user = req.user
+ user.password = req.body.password;
+
+ await User.update({password : req.body.password}, {
+  where: {
+   id : user.id
+  },
+  individualHooks: true,
+ });
+ responseHandler(req , res , 201 ,'updated')
+})
+

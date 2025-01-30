@@ -70,5 +70,10 @@ User.beforeCreate(async (user)=>{
     user.password = await  hashPassword(user.password);
 })
 
+User.beforeUpdate(async (user) => {
+    if (user.changed('password')) {
+        user.password = await hashPassword(user.password);
+    }
+});
 
 module.exports = User;
