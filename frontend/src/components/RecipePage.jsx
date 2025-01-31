@@ -75,20 +75,22 @@ export const RecipePage = () => {
 
 
     const postComment = async ()=>{
+
         const commentObj = {
             "content" : comment,
             "recipe_id" : recipe.id,
             "user_id" : decoded.id
         }
+        setComments([... comments , {id : 0 , content: comment ,created_at: new Date().toISOString() , relativeTime : dayjs(comment.created_at).fromNow() , User : {username : decoded.username}}])
+        setComment('')
 
-       const response =  await axios.post('http://localhost:3000/comments' ,  commentObj , {
+        const response =  await axios.post('http://localhost:3000/comments' ,  commentObj , {
            headers: {
                'Authorization': `Bearer ${jwt}`,
                'Content-Type': 'application/json'
            }
        })
-       setComments([... comments , {id : 0 , content: comment ,created_at: new Date().toISOString() , relativeTime : dayjs(comment.created_at).fromNow() , User : {username : decoded.username}}])
-       setComment('')
+
 
     }
 

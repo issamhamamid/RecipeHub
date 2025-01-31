@@ -12,6 +12,7 @@ import {RecipePage} from "./components/RecipePage.jsx";
 import {DayJs} from "./components/DayJs.jsx";
 import {MealPlanner} from "./components/MealPlanner.jsx";
 import {Account} from "./components/Account.jsx";
+import {MealPlanProvider} from "./components/MealPlanProvider.jsx";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <BrowserRouter>
                 <Routes>
                     <Route element={<PrivateRouteLayout />}>
+
                         <Route path = '/app'  element={<MainLayout/>} >
                             <Route index element={<MealPlanner/>}/>
                             <Route path='recipes' element={<Discover/>}/>
@@ -28,6 +30,7 @@ function App() {
                             <Route path='recipes/:id' element={<RecipePage/>}/>
 
                         </Route>
+                       
                     </Route>
                     <Route path = '/'  element={<OfflineLayout/>} >
                         <Route path='register' element={<Register/>}/>

@@ -2,13 +2,14 @@
 import {useScroll} from "../customHooks/useScroll.js";
 import { BsArrowRepeat } from "react-icons/bs";
 import {MealPlanPage} from "./MealPlanPage.jsx";
-import {useActionState, useEffect, useRef, useState} from "react";
+import {useActionState, useEffect, useRef} from "react";
 import {ModalTitle} from "./ModalTitle.jsx";
 
 import {Modal} from "./Modal.jsx";
 import axios from "axios";
 import {useUser} from "../customHooks/useUser.js";
 import generate from "../Util/generate.js";
+import {useMealPlan} from "../customHooks/useMealPlan.js";
 
 
 
@@ -16,11 +17,11 @@ export const MealPlanner = () => {
 
     const dialogRef = useRef(null);
     const {jwt} = useUser()
+    const{mealPlan , update , setUpdate , setMealPlan } = useMealPlan()
     const isScrolled = useScroll(3)
     const link = 'http://localhost:3000/users/generate_meal_plan';
     const fields = ['calories' , 'protein' , 'mealCount']
-    const [mealPlan, setMealPlan] = useState({'mealplans' : []});
-    const [update, setUpdate] = useState(false)
+
 
 
     useEffect(() => {
