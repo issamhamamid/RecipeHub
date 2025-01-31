@@ -1,13 +1,25 @@
 import {GrFormPrevious} from "react-icons/gr";
-import { BsThreeDots } from "react-icons/bs";
-import { MdOutlineNavigateNext } from "react-icons/md";
-import {useSearchParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {BsThreeDots} from "react-icons/bs";
+import {MdOutlineNavigateNext} from "react-icons/md";
 
 
-export const Pagination = ({page , count}) => {
-    const [params , setParams] = useSearchParams()
+export const Pagination = ({page , count , params , setParams , setString }) => {
+
+
+    const addToParams = (key , value)=>{
+        const sp = new URLSearchParams(params)
+        sp.set(key , value)
+        return sp.toString()
+    }
+
+    const handleClick = (element) => {
+
+        setParams(addToParams('page', element))
+        setString(addToParams('page', element))
+
+    };
+
+
     if(parseInt(count)===0){
         return null
     }
@@ -59,11 +71,6 @@ export const Pagination = ({page , count}) => {
     }
 
 
-    const addToParams = (key , value)=>{
-        const sp = new URLSearchParams(params)
-        sp.set(key , value)
-        return sp.toString()
-    }
 
 
 
@@ -79,8 +86,8 @@ export const Pagination = ({page , count}) => {
             ) : (
                 <a
                     key={String(element)}
-                    onClick={() => {
-                        setParams(addToParams('page', element));
+                    onClick={ () => {
+                         handleClick(element)
                     }}
                     className="page_number"
                 >
@@ -89,6 +96,7 @@ export const Pagination = ({page , count}) => {
             );
         })
     );
+
 
 
 

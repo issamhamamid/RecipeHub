@@ -1,36 +1,46 @@
 import {RecipeRow} from "./RecipeRow.jsx";
-import {useEffect, useState} from "react";
 import axios from "axios";
 import {Pagination} from "./Pagination.jsx";
 import {useSearchParams} from "react-router-dom";
 import {DiscoverHeader} from "./DiscoverHeader.jsx";
+import {keepPreviousData, useQuery} from "@tanstack/react-query";
+import {useEffect, useState} from "react";
+
 
 
 export const Discover = () => {
 
-    const [recipesArray, setRecipesArray] = useState([]);
-    const [params] = useSearchParams()
+    const [params , setParams] = useSearchParams()
     const page = params.get('page') || 1
-    const [count, setCount] = useState(null);
+    const [string, setString] = useState(params.toString());
 
 
-
-    useEffect(() => {
-
-        const link = params.size > 0 ? `http://localhost:3000/recipes?${params.toString()}` :
+    const getRecipes = async (string)=>{
+        const link = string.length > 0 ? `http://localhost:3000/recipes?${string}` :
             `http://localhost:3000/recipes?page=1`
-        axios.get(link)
-                .then(response =>{
-                    setRecipesArray(response.data.data.rows)
-                    setCount(response.data.data.count)
-                })
+        return axios.get(link)
 
 
-    }, [params]);
+    }
 
-    const recipes = recipesArray.map((recipe)=>{
+
+
+    const recipesQuery = useQuery({
+        queryKey : ["recipes" , string],
+        queryFn : ()=>getRecipes(string).then(response=>{return {recipes : response.data.data.rows , count : response.data.data.count}})
+        ,
+        placeholderData: keepPreviousData
+
+    })
+
+
+    if (recipesQuery.status === "pending")  return <h1>Loading dfdfd...</h1>
+
+    const recipes = recipesQuery.data.recipes.map((recipe)=>{
+
         return <RecipeRow key={recipe.id} {...recipe} />;
     })
+
 
     return (
         <div>
@@ -49,7 +59,7 @@ export const Discover = () => {
             {recipes}
 
 
-            <Pagination page={page} count={Math.ceil(count/17)}/>
+            <Pagination setString = {setString} params={params} setParams={setParams}  page={page} count={Math.ceil(recipesQuery.data.count/17)}/>
 
 
         </div>
