@@ -84,13 +84,24 @@ export const RecipePage = () => {
     })
 
     const addToFavorites = async ()=>{
-        const response = await axios.post(`http://localhost:3000/favorites/${params.id}` , {},  {
-            headers: {
-                'Authorization': `Bearer ${jwt}`,
-                'Content-Type': 'application/json'
-            }
-        })
-        return response.data.data
+        if(!data){
+            const response = await axios.post(`http://localhost:3000/favorites/${params.id}` , {},  {
+                headers: {
+                    'Authorization': `Bearer ${jwt}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            return response.data.data
+        }
+        else {
+            const response = await axios.delete(`http://localhost:3000/favorites/${params.id}` ,  {
+                headers: {
+                    'Authorization': `Bearer ${jwt}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            return response.data.data
+        }
     }
 
 
@@ -99,7 +110,7 @@ export const RecipePage = () => {
         onMutate : async ()=>{
             await queryClient.cancelQueries(['isFavorite' , params.id])
             const prevData = queryClient.getQueryData(['isFavorite' , params.id])
-            queryClient.setQueryData(['isFavorite' , params.id] , true)
+            queryClient.setQueryData(['isFavorite' , params.id] , !prevData || false)
 
             return {prevData}
         } ,
