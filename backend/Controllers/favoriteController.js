@@ -42,3 +42,12 @@ module.exports.showfavorites = asyncHandler(async (req , res , next) => {
     const data = await req.user.getFavoriteRecipes({joinTableAttributes: [],})
     responseHandler(req , res , 200 , data)
 })
+
+
+module.exports.isRecipeFavorite = asyncHandler(async (req , res , next)=>{
+    const user = req.user;
+    const recipe = req.recipe;
+    const data =  await user.hasFavoriteRecipe(recipe);
+    responseHandler(req , res , 200 , data)
+
+})

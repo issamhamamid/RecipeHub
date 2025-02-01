@@ -17,12 +17,14 @@ import {useUser} from "../customHooks/useUser.js";
 import {jwtDecode} from "jwt-decode";
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 
 
 
 export const RecipePage = () => {
 
     const {jwt} = useUser()
+    const queryClient = useQueryClient()
     const decoded = jwtDecode(jwt);
     const isScrolled = useScroll(3)
     const params = useParams()
@@ -64,6 +66,54 @@ export const RecipePage = () => {
         })
 
     }, []);
+
+
+    const isRecipeFavorite =async (id)=>{
+        const response = await axios.get(`http://localhost:3000/favorites/${id}` , {
+            headers: {
+                'Authorization': `Bearer ${jwt}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        return response.data.data
+    }
+
+    const {data} = useQuery({
+        queryKey : ['isFavorite' , params.id],
+        queryFn : ()=>isRecipeFavorite(params.id)
+    })
+
+    const addToFavorites = async ()=>{
+        const response = await axios.post(`http://localhost:3000/favorites/${params.id}` , {},  {
+            headers: {
+                'Authorization': `Bearer ${jwt}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        return response.data.data
+    }
+
+
+    const {mutate , isLoading} = useMutation({
+        mutationFn : addToFavorites ,
+        onMutate : async ()=>{
+            await queryClient.cancelQueries(['isFavorite' , params.id])
+            const prevData = queryClient.getQueryData(['isFavorite' , params.id])
+            queryClient.setQueryData(['isFavorite' , params.id] , true)
+
+            return {prevData}
+        } ,
+        onError : (_ , __ , context)=>{
+            queryClient.setQueryData(['isFavorite' , params.id] , context?.prevData )
+        } ,
+        onSettled : ()=>{
+            queryClient.invalidateQueries(['isFavorite' , params.id])
+        }
+    })
+
+
+
+
 
     const ingredientsUI = ingredients.map((ingredient)=>{
         return <IngredientRow key = {ingredient.id} {...ingredient} quantity={ingredient.RecipeIngredient.quantity}/>
@@ -144,7 +194,7 @@ export const RecipePage = () => {
                      alt='recipe image'/>
                 <div className='recipe-interactions'>
 
-                    <div className='interaction-btn'>
+                    <div onClick={()=>mutate()} className={data ? 'interaction-btn favorite' : 'interaction-btn'}>
                         <FaRegStar/>
                     </div>
 

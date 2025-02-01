@@ -88,10 +88,10 @@ export const Account = () => {
                         </div>
 
                         <div className='modal-buttons meal-form-btns'>
-                            <button type="button" className='modal-btn default'
+                            <button type="button" className='modal-btn-account default'
                                     onClick={() => emailRef.current?.close()}>Cancel
                             </button>
-                            <button type='submit' className='modal-btn confirm'>Change Email</button>
+                            <button type='submit' className='modal-btn-account confirm'>Change Email</button>
 
                         </div>
                     </form>
@@ -116,10 +116,10 @@ export const Account = () => {
                         </div>
 
                         <div className='modal-buttons meal-form-btns'>
-                            <button type="button" className='modal-btn default'
+                            <button type="button" className='modal-btn-account default'
                                     onClick={() => passwordRef.current?.close()}>Cancel
                             </button>
-                            <button type='submit' className='modal-btn confirm'>Change Password</button>
+                            <button type='submit' className='modal-btn-account confirm'>Change Password</button>
 
                         </div>
                     </form>

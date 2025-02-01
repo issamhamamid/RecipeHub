@@ -411,13 +411,17 @@ input:hover{
     gap: .5em;
 }
 
-.modal-btn{
+.modal-btn , .modal-btn-account{
     padding: .9em 1em;
     border: none;
     border-radius: 20px;
     cursor: pointer;
     font-weight: 600;
+}
+
+.modal-btn{
     width: 92px;
+
 }
 
 
@@ -807,9 +811,18 @@ input:hover{
 
 }
 
+.favorite{
+    color: #f07651;
+    border-color: #f07651;
+}
+
+
 .interaction-btn:hover , .interaction-btn:focus{
     background-color: #f3f5f5;
 
+}
+.favorite:hover , .favorite:focus{
+    background-color: #f8f4f4;
 }
 
 .cook-prep{
