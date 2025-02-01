@@ -1,11 +1,12 @@
 import {BsThreeDotsVertical} from "react-icons/bs";
 import {Link} from "react-router-dom";
 
-export const Meal = ({meal}) => {
+export const Meal = ({meal , meal_num}) => {
+
     return (
         <div className='meal'>
             <div className='meal-header'>
-                <h2 className='meal-title'>Breakfast</h2>
+                <h2 className='meal-title'>Meal {meal_num+1}</h2>
                 <div className='interaction-btn dots-icon dark-hover'>
 
                     <BsThreeDotsVertical/>

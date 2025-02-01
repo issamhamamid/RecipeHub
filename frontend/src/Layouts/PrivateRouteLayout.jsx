@@ -2,6 +2,7 @@ import {Navigate, Outlet} from "react-router-dom";
 import {useUser} from "../customHooks/useUser.js";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import {Loading} from "../components/Loading.jsx";
 
 const PrivateRouteLayout = () => {
 
@@ -32,7 +33,7 @@ const PrivateRouteLayout = () => {
 
     return (
         <>
-            {isLoadig ? <h1>Loading</h1> : isValid ? <Outlet/> : <Navigate to='/login'/>}
+            {isLoadig ? <Loading/> : isValid ? <Outlet/> : <Navigate to='/login'/>}
         </>
     )
 }

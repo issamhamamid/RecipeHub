@@ -4,7 +4,7 @@ import {PieChart} from "react-minimal-pie-chart";
 import { MdOutlineDelete } from "react-icons/md";
 import clearPlan from "../Util/clearPlan.js";
 import {useUser} from "../customHooks/useUser.js";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import {Modal} from "./Modal.jsx";
 import {ModalTitle} from "./ModalTitle.jsx";
 import {ModalMainText} from "./ModalMainText.jsx";
@@ -14,6 +14,7 @@ import {ModalMainText} from "./ModalMainText.jsx";
 export const MealPlanPage = ({mealPlan , ref , update ,setUpdate}) => {
     const {jwt} = useUser()
     const clearRef = useRef(null)
+    const [isPending, setIsPending] = useState(false);
 
     const meals = mealPlan.recipes.reduce((result, _, index, array) => {
         if (index % 2 === 0) { // Check if the index is even
@@ -36,8 +37,10 @@ export const MealPlanPage = ({mealPlan , ref , update ,setUpdate}) => {
 
 
     const clearDay =async  ()=>{
+        setIsPending(true)
         await clearPlan(jwt)
         setUpdate(!update)
+        setIsPending(false)
     }
 
 
@@ -58,8 +61,8 @@ export const MealPlanPage = ({mealPlan , ref , update ,setUpdate}) => {
                 </div>
 
             </div>
-                {meals.map((meal)=>{
-                        return <Meal key = {meal.total_calories}  meal={meal} />
+                {meals.map((meal , index)=>{
+                        return <Meal meal_num = {index} key = {meal.total_calories}  meal={meal} />
                 })}
 
             </div>
@@ -134,7 +137,7 @@ export const MealPlanPage = ({mealPlan , ref , update ,setUpdate}) => {
                      alt='carrot'/>
             </div>
 
-            <Modal onConfirm={clearDay} dialogRef={clearRef} confirmationText='Clear' showButtons={true} className='modal with-keyframes'>
+            <Modal isPending={isPending} onConfirm={clearDay} dialogRef={clearRef} confirmationText='Clear' showButtons={true} className='modal with-keyframes'>
                 <ModalTitle>Clear Today&#39;s Meal Plan?</ModalTitle>
                 <ModalMainText>This will permanently remove this plan. However, you can always create a new one later if you'd like.</ModalMainText>
             </Modal>

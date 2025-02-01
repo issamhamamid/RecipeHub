@@ -7,7 +7,7 @@ import {useScroll} from "../customHooks/useScroll.js";
 
 
 
-export const DiscoverHeader = () => {
+export const DiscoverHeader = ({setString}) => {
 
     const [search, setSearch] = useState('');
     const [params , setParams] = useSearchParams()
@@ -32,6 +32,7 @@ export const DiscoverHeader = () => {
             sp.set('search' , search)
             sp.set('page' , '1')
             setParams(sp)
+            setString(sp.toString())
         }
 
         else {

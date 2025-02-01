@@ -71,7 +71,7 @@ const generate = async (prev , formData , jwt  , link , fields , setUpdate , upd
         data.error = err.response?.data?.message
     }
 
-    dialogRef.current.close()
+    dialogRef.current?.close()
     return data
 }
 

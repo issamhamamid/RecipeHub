@@ -4,7 +4,8 @@ import {Pagination} from "./Pagination.jsx";
 import {useSearchParams} from "react-router-dom";
 import {DiscoverHeader} from "./DiscoverHeader.jsx";
 import {keepPreviousData, useQuery} from "@tanstack/react-query";
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import {Loading} from "./Loading.jsx";
 
 
 
@@ -34,9 +35,8 @@ export const Discover = () => {
     })
 
 
-    if (recipesQuery.status === "pending")  return <h1>Loading dfdfd...</h1>
 
-    const recipes = recipesQuery.data.recipes.map((recipe)=>{
+    const recipes = recipesQuery?.data?.recipes.map((recipe)=>{
 
         return <RecipeRow key={recipe.id} {...recipe} />;
     })
@@ -44,25 +44,26 @@ export const Discover = () => {
 
     return (
         <div>
-        <DiscoverHeader/>
-        <div className='discover'>
-            <div className='header'>
+        <DiscoverHeader setString = {setString}/>
+            { recipesQuery.status === "pending" ? <Loading/> : <div className='discover'>
+                <div className='header'>
 
-                <div className='header-main'>
-                    <p className='header-element'>Calories</p>
-                    <p className='header-element none '>Carbs</p>
-                    <p className='header-element none'>Fat</p>
-                    <p className='header-element none'>Protein</p>
+                    <div className='header-main'>
+                        <p className='header-element'>Calories</p>
+                        <p className='header-element none '>Carbs</p>
+                        <p className='header-element none'>Fat</p>
+                        <p className='header-element none'>Protein</p>
+                    </div>
                 </div>
-            </div>
 
-            {recipes}
-
-
-            <Pagination setString = {setString} params={params} setParams={setParams}  page={page} count={Math.ceil(recipesQuery.data.count/17)}/>
+                {recipes}
 
 
-        </div>
+                <Pagination setString={setString} params={params} setParams={setParams} page={page}
+                            count={Math.ceil(recipesQuery.data.count / 17)}/>
+
+
+            </div>}
         </div>
     )
 }
