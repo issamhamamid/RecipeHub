@@ -13,6 +13,7 @@ import {DayJs} from "./components/DayJs.jsx";
 import {MealPlanner} from "./components/MealPlanner.jsx";
 import {Account} from "./components/Account.jsx";
 import {MealPlanProvider} from "./components/MealPlanProvider.jsx";
+import {NotFound} from "./components/NotFound.jsx";
 
 function App() {
 
@@ -20,12 +21,13 @@ function App() {
       <UserProvider>
           <BrowserRouter>
                 <Routes>
+
                     <Route element={<PrivateRouteLayout />}>
 
                         <Route path = '/app'  element={<MainLayout/>} >
                             <Route index element={<MealPlanner/>}/>
                             <Route path='recipes' element={<Discover/>}/>
-                            <Route path='favorites' element={<DayJs/>}/>
+                            <Route path='favorites' element={<NotFound/>}/>
                             <Route path='settings' element={<Account/>}/>
                             <Route path='recipes/:id' element={<RecipePage/>}/>
 
@@ -41,7 +43,7 @@ function App() {
 
 
 
-
+                    <Route path='*' element={<NotFound/>} />
                 </Routes>
 
 

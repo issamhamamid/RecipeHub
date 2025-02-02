@@ -476,6 +476,8 @@ input:hover{
 }
 
 
+
+
 .header{
     display: flex;
     justify-content: flex-end;
@@ -1604,6 +1606,50 @@ input:hover{
     width: 18px;
     height: 18px;
 }
+
+
+/*NOT FOUND PAGE*/
+
+.not-found{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 11em;
+
+
+}
+
+
+.not-found-text{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.four{
+    height: 1.25em;
+    font-weight: 550;
+    font-size: 2rem;
+}
+
+.return-home{
+    margin-top: 1em;
+    color: #0053ac;
+    font-weight: 380;
+    font-size: 1.06rem;
+}
+
+@media (max-width: 620px) {
+    .not-found{
+        flex-direction: column;
+        margin-top: 1em;
+    }
+
+    .not-found-img{
+        order: 2;
+    }
+}
+
 
 
 
