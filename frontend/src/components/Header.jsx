@@ -2,11 +2,13 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import {useState, useEffect} from "react";
 import { IoMdClose } from "react-icons/io";
 import {Link} from 'react-router-dom'
+import {useNavigate} from "react-router-dom";
 
 const Header =()=>{
 
     const [imageSrc, setImageSrc] = useState('/src/assets/logo-small.PNG');
     const [menu, setMenu] = useState(false)
+    const navigate = useNavigate()
 
     const [height_class, setHeight_class] = useState("normal")
 
@@ -40,6 +42,11 @@ const Header =()=>{
     }, []);
 
 
+    const goToLogin = ()=>{
+        navigate('register')
+    }
+
+
 
     return(
         <header className= {"offline-header" +" " + height_class}>
@@ -50,8 +57,8 @@ const Header =()=>{
                     <Link to='.'  className="header-links"> About</Link>
 
                 <div className="sign-up-section">
-                    <button className="btn signup-btn">Sign Up</button>
-                    <Link to= 'register' className="header-links sign-in"> Already a member? Sign in</Link>
+                    <button onClick={goToLogin} className="btn signup-btn">Sign Up</button>
+                    <Link to= 'login' className="header-links sign-in"> Already a member? Sign in</Link>
                 </div>
                 <a
                     className="hamburger-menu"

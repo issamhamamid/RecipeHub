@@ -14,6 +14,7 @@ import {MealPlanner} from "./components/MealPlanner.jsx";
 import {Account} from "./components/Account.jsx";
 import {MealPlanProvider} from "./components/MealPlanProvider.jsx";
 import {NotFound} from "./components/NotFound.jsx";
+import {ForgotPassword} from "./components/ForgotPassword.jsx";
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
                         <Route path = '/app'  element={<MainLayout/>} >
                             <Route index element={<MealPlanner/>}/>
                             <Route path='recipes' element={<Discover/>}/>
-                            <Route path='favorites' element={<NotFound/>}/>
+                            <Route path='favorites' element={<ForgotPassword/>}/>
                             <Route path='settings' element={<Account/>}/>
                             <Route path='recipes/:id' element={<RecipePage/>}/>
 

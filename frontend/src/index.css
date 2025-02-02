@@ -299,6 +299,7 @@ input{
 }
 
 .sign-in-btn{
+    font-size: .96rem;
     width: 100%;
     border-radius: 100px;
     display: flex;
@@ -309,7 +310,6 @@ input{
     border: none;
     background-color: #f07651;
     color: white;
-    font-size: .9rem;
     cursor: pointer;
     margin-top: .8em;
 
@@ -1648,6 +1648,16 @@ input:hover{
     .not-found-img{
         order: 2;
     }
+}
+
+
+.password-reset-success{
+    width: 78%;
+    font-size: 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 1em;
 }
 
 
