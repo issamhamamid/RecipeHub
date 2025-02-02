@@ -1596,6 +1596,10 @@ input:hover{
     justify-content: center;
 }
 
+.pending-button:hover{
+    background-color: #f7baa8;
+}
+
 .pending-icon{
     width: 18px;
     height: 18px;

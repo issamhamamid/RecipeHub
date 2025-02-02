@@ -6,7 +6,6 @@ import {useActionState, useEffect, useRef, useState} from "react";
 import {ModalTitle} from "./ModalTitle.jsx";
 
 import {Modal} from "./Modal.jsx";
-import axios from "axios";
 import {useUser} from "../customHooks/useUser.js";
 import generate from "../Util/generate.js";
 import {useMealPlan} from "../customHooks/useMealPlan.js";

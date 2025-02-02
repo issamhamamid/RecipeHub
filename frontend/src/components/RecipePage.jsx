@@ -18,6 +18,7 @@ import {jwtDecode} from "jwt-decode";
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {Loading} from "./Loading.jsx";
 
 
 
@@ -78,13 +79,17 @@ export const RecipePage = () => {
         return response.data.data
     }
 
-    const {data} = useQuery({
+
+
+    const Favoritedata = useQuery({
         queryKey : ['isFavorite' , params.id],
         queryFn : ()=>isRecipeFavorite(params.id)
     })
 
+
+
     const addToFavorites = async ()=>{
-        if(!data){
+        if(!Favoritedata.data){
             const response = await axios.post(`http://localhost:3000/favorites/${params.id}` , {},  {
                 headers: {
                     'Authorization': `Bearer ${jwt}`,
@@ -183,6 +188,10 @@ export const RecipePage = () => {
     }, []);// Empty dependency array means this runs once on mount and cleans up on unmount
 
 
+    if(Favoritedata.isLoading){
+        return <Loading/>
+    }
+
 
     return (
         <>
@@ -205,7 +214,7 @@ export const RecipePage = () => {
                      alt='recipe image'/>
                 <div className='recipe-interactions'>
 
-                    <div onClick={()=>mutate()} className={data ? 'interaction-btn favorite' : 'interaction-btn'}>
+                    <div  onClick={()=>mutate()} className={Favoritedata.data ? 'interaction-btn favorite' : 'interaction-btn'}>
                         <FaRegStar/>
                     </div>
 

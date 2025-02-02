@@ -19,15 +19,22 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+
     username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: {
+                args: true,
+                msg: 'This username is already in use. Please supply another one.'
+            },
     },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: {
+            args: true,
+            msg: 'This email address is already in use. Please supply another one.'
+        },
         validate: {
             isEmail: true,
         },

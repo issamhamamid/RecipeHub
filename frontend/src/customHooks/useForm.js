@@ -40,7 +40,7 @@ const useForm = (link, jsonObjArray, fields , dataValidator = ()=>{
 
         }
         catch (err){
-            data.error = err.response?.data?.message
+            data.error = err.response?.data
         }
 
         return data

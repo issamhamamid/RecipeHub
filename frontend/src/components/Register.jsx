@@ -3,6 +3,7 @@ import { GiBellPepper } from "react-icons/gi";
 import {Link} from "react-router-dom";
 import {useState} from "react";
 import {useForm} from "../customHooks/useForm.js";
+import {TailSpin} from "react-loading-icons";
 
 export const Register = () => {
 
@@ -72,10 +73,12 @@ export const Register = () => {
                     <label htmlFor="username">Username</label>
                     <input defaultValue={data?.username} type="text" id="username" name="username" required/>
                     {errors.username && <div className='error-div'>  <p>{errors.username}</p> </div>}
+                    {data?.error?.attribute === 'username' && <div className='error-div'>  <p>{data?.error.message}</p> </div>}
                 </div>
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input defaultValue={data?.email} type="email" id="email" name="email" required/>
+                    {data?.error?.attribute === 'email' && <div className='error-div'>  <p>{data?.error.message}</p> </div>}
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
@@ -89,8 +92,8 @@ export const Register = () => {
                     <input defaultValue={data?.confirm} type="password" id="confirm" name="confirm" required/>
                             {errors.confirm &&  <div className='error-div'><p>{errors.confirm}</p> </div>}
                     </div>
-                        <button disabled={isPending} className="sign-in-btn">
-                    <GoPerson className="icon"/> Create Account
+                <button disabled={isPending} className={isPending?  'pending-button sign-in-btn' :  "sign-in-btn"}>
+                    { isPending ? <TailSpin className='pending-icon'/> : <GoPerson className="icon"/>} {isPending ? null : "Create Account"}
                 </button>
             </form>
 
