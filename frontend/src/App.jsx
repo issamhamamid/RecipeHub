@@ -15,6 +15,7 @@ import {Account} from "./components/Account.jsx";
 import {MealPlanProvider} from "./components/MealPlanProvider.jsx";
 import {NotFound} from "./components/NotFound.jsx";
 import {ForgotPassword} from "./components/ForgotPassword.jsx";
+import {ResetPassword} from "./components/ResetPassword.jsx";
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
                         <Route path = '/app'  element={<MainLayout/>} >
                             <Route index element={<MealPlanner/>}/>
                             <Route path='recipes' element={<Discover/>}/>
-                            <Route path='favorites' element={<ForgotPassword/>}/>
+                            <Route path='favorites' element={<ResetPassword/>}/>
                             <Route path='settings' element={<Account/>}/>
                             <Route path='recipes/:id' element={<RecipePage/>}/>
 
@@ -38,6 +39,8 @@ function App() {
                     <Route path = '/'  element={<OfflineLayout/>} >
                         <Route path='register' element={<Register/>}/>
                         <Route path='login' element={<Login/>}/>
+                        <Route path='forgotpass' element={<ForgotPassword/>}/>
+                        <Route path='resetpass' element={<ResetPassword/>}/>
 
 
                     </Route>

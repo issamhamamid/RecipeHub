@@ -14,7 +14,7 @@ authRouter.route('/forgotpass')
     .post(authController.forgotPassword)
 
 authRouter.route('/resetpassword')
-    .get(authController.resetPassword)
+    .post(authController.resetPassword)
 
 
 authRouter.route('/validate')

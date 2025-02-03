@@ -102,7 +102,7 @@ module.exports.forgotPassword = asyncHandler(async (req , res , next)=>{
         username: req.body.username,
     }
     const token = jwt.sign(payload, process.env.PASSWORD_RESET, { expiresIn: '1h' });
-    const resetLink = `http://localhost:3000/auth/resetpassword?token=${token}`;
+    const resetLink = `http://localhost:5173/resetpass?token=${token}`;
 
     const transporter = nodemailer.createTransport({
       service: 'gmail', // You can use other services like Outlook, Yahoo, etc.
@@ -132,17 +132,23 @@ module.exports.resetPassword = asyncHandler(async (req , res , next)=>{
     const user = decoded ? await User.findOne({ where: {username : decoded.username} }) : null
     if(user){
         jwt.verify(token, process.env.PASSWORD_RESET);
-        await User.update(
-            { password : hashPassword(user.password) },
-            {
-                where: {
-                    id: user.id,
-                },
-                individualHooks: true,
+        // await User.update(
+        //     { password : hashPassword(req.body.password) },
+        //     {
+        //         where: {
+        //             id: user.id,
+        //         },
+        //         individualHooks: true,
+        //     },
+        //
+        // );
+
+        await User.update({password : req.body.password}, {
+            where: {
+                id : user.id
             },
-
-        );
-
+            individualHooks: true,
+        });
 
         responseHandler(req , res , 200 , "Password reset successfully")
 

@@ -35,7 +35,7 @@ export const Login = () => {
                     <input defaultValue={data?.password} type="password" id="password" name="password" required/>
                 </div>
 
-                <a className='forgot'>Forgot password?</a>
+                <Link className='forgot' to='/forgotpass'>Forgot password?</Link>
                 <button type="submit" className={isPending ? 'pending-button sign-in-btn' : "sign-in-btn"}>
 
                     {isPending ? <TailSpin className='pending-icon'/> :
