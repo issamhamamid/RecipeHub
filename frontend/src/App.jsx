@@ -9,13 +9,13 @@ import PrivateRouteLayout from "./Layouts/PrivateRouteLayout.jsx";
 import {Discover} from "./components/Discover.jsx";
 
 import {RecipePage} from "./components/RecipePage.jsx";
-import {DayJs} from "./components/DayJs.jsx";
+
 import {MealPlanner} from "./components/MealPlanner.jsx";
 import {Account} from "./components/Account.jsx";
-import {MealPlanProvider} from "./components/MealPlanProvider.jsx";
 import {NotFound} from "./components/NotFound.jsx";
 import {ForgotPassword} from "./components/ForgotPassword.jsx";
 import {ResetPassword} from "./components/ResetPassword.jsx";
+import {Favorites} from "./components/Favorites.jsx";
 
 function App() {
 
@@ -29,7 +29,7 @@ function App() {
                         <Route path = '/app'  element={<MainLayout/>} >
                             <Route index element={<MealPlanner/>}/>
                             <Route path='recipes' element={<Discover/>}/>
-                            <Route path='favorites' element={<ResetPassword/>}/>
+                            <Route path='favorites' element={<Favorites/>}/>
                             <Route path='settings' element={<Account/>}/>
                             <Route path='recipes/:id' element={<RecipePage/>}/>
 

@@ -1665,9 +1665,92 @@ input:hover{
 }
 
 
+/*FAVORITES PAGE*/
+
+.favorites{
+    margin-top: 7.51em;
+}
 
 
+.recipe-grid-item{
+    padding: .4em .4em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color;
+    transition-duration: 200ms;
 
+}
+
+.recipe-grid-item:hover , .recipe-grid-item:focus{
+    background-color: #f3f5f5;
+}
+
+.grid-img{
+    width: 100%;
+    border-radius: 5px;
+    height: 160px;
+    object-fit: cover;
+    object-position: center;
+
+}
+
+.grid-item{
+    margin-left: 7px;
+
+
+}
+
+.grid-link{
+    color: #2c6a96;
+    font-size: 1.08rem;
+    font-weight: 570;
+    display: inline-block;
+}
+
+.grid-calories{
+    font-weight: 350;
+    font-size: 1rem;
+
+}
+
+.grid-time{
+    display: flex;
+    align-items: center;
+
+    font-size: 1.03rem;
+}
+
+.fire{
+    font-size: 1.2rem;
+    margin-right: .1em;
+    margin-left: -.07em;
+
+}
+
+.clock{
+    margin-right: .3em;
+
+}
+
+.mb{
+    margin-bottom : 2em
+}
+
+
+.grid-recipe-link{
+    color:#303a41 ;
+    text-decoration: none;
+}
+
+.grid-recipe-link:hover , .grid-recipe-link:focus{
+    text-decoration: none;
+}
+
+.favorites{
+    display: grid;
+    grid-template-columns: repeat(auto-fill , minmax(200px , 1fr)) ;
+    gap: .1em;
+}
 
 
 
